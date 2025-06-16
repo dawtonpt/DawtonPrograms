@@ -94,7 +94,7 @@
   </style>
 </head>
 <body>
-  <h1>🧠 Math Master</h1>
+  <h1>🧠 Bora bora estudasses</h1>
   <div id="game-box">
     <input type="text" id="name-input" placeholder="Enter your name" />
     <div id="question">Loading...</div>
