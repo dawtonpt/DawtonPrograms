@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Math Master: The Brain Arena</title>
+  <title>Bora bora estudasses</title>
+  <subtitle>por Dawton Pessanha</subtitle>
   <style>
     body {
       background: #111;
