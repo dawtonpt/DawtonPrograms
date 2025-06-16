@@ -1,8 +1,9 @@
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <title>Math Master: The Brain Arena</title>
+ <em><subtitle>Por: Dawton Pessanha </subtitle></em>
   <style>
     body {
       background: #111;
@@ -76,7 +77,7 @@
   </script>
 </head>
 <body>
-  <h1>🧠 Math Master</h1>
+  <h1>🧠 Bora Estudasses</h1>
   <div id="game-box">
     <input type="text" id="name-input" placeholder="Enter your name" />
     <div id="question">Loading...</div>
