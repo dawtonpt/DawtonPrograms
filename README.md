@@ -1,9 +1,9 @@
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <title>Math Master: The Brain Arena</title>
- <em><subtitle>Por: Dawton Pessanha </subtitle></em>
+  <em><subtitle>Por: Dawton Pessanha </subtitle></em>
   <style>
     body {
       background: #111;
@@ -58,6 +58,54 @@
       margin-bottom: 0.25rem;
       border-radius: 5px;
     }
+    /* Podium styles */
+    .podium-container {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      height: 120px;
+      margin-bottom: 1.5rem;
+      gap: 20px;
+    }
+    .podium-bar {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      width: 60px;
+      background: #444;
+      border-radius: 8px 8px 0 0;
+      position: relative;
+      transition: height 1s cubic-bezier(.68,-0.55,.27,1.55);
+      overflow: hidden;
+    }
+    .podium-bar.gold { background: linear-gradient(180deg, #ffe066 70%, #bfa900 100%); }
+    .podium-bar.silver { background: linear-gradient(180deg, #e0e0e0 70%, #a0a0a0 100%); }
+    .podium-bar.bronze { background: linear-gradient(180deg, #e6b980 70%, #a67c52 100%); }
+    .podium-rank {
+      position: absolute;
+      top: 5px;
+      left: 0;
+      width: 100%;
+      font-size: 1.2em;
+      font-weight: bold;
+      color: #222;
+      text-shadow: 0 1px 2px #fff8;
+    }
+    .podium-name {
+      margin-top: 10px;
+      font-size: 1em;
+      color: #fff;
+      font-weight: bold;
+      text-shadow: 0 1px 2px #2228;
+    }
+    .podium-score {
+      font-size: 1.1em;
+      color: #222;
+      font-weight: bold;
+      margin-bottom: 10px;
+      text-shadow: 0 1px 2px #fff8;
+    }
   </style>
   <!-- Firebase App (the core Firebase SDK) -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
@@ -90,6 +138,9 @@
   </div>
   <div id="leaderboard">
     <h2>🏆 Leaderboard</h2>
+    <div class="podium-container" id="podium-container">
+      <!-- Podium bars will be injected here -->
+    </div>
     <ul id="leaderboard-list"></ul>
   </div>
   <script>
@@ -102,6 +153,7 @@
     const timeEl = document.getElementById('time');
     const nameInput = document.getElementById('name-input');
     const leaderboardList = document.getElementById('leaderboard-list');
+    const podiumContainer = document.getElementById('podium-container');
 
     let score = 0;
     let lives = 3;
@@ -187,16 +239,43 @@
     }
 
     function renderLeaderboard() {
-      db.ref('leaderboard').orderByChild('score').limitToLast(10).once('value', snapshot => {
-        const scores = [];
+      db.ref('leaderboard').orderByChild('score').limitToLast(20).once('value', snapshot => {
+        let scores = [];
         snapshot.forEach(child => {
-          scores.push(child.val());
+          const entry = child.val();
+          if (entry.score && entry.score > 0) {
+            scores.push(entry);
+          }
         });
-        scores.reverse(); // Highest first
+        scores.sort((a, b) => b.score - a.score);
+        scores = scores.slice(0, 10);
+
+        // Podium animation for top 3
+        podiumContainer.innerHTML = '';
+        const podiumHeights = [90, 120, 70]; // px for 2nd, 1st, 3rd
+        const podiumClasses = ['silver', 'gold', 'bronze'];
+        for (let i = 0; i < 3; i++) {
+          const entry = scores[i];
+          const bar = document.createElement('div');
+          bar.className = 'podium-bar ' + (podiumClasses[i] || '');
+          bar.style.height = '0px';
+          bar.innerHTML = `
+            <div class="podium-rank">${i + 1}</div>
+            <div class="podium-score">${entry ? entry.score : ''}</div>
+            <div class="podium-name">${entry ? entry.name : ''}</div>
+          `;
+          podiumContainer.appendChild(bar);
+          // Animate height
+          setTimeout(() => {
+            bar.style.height = entry ? `${podiumHeights[i]}px` : '0px';
+          }, 100);
+        }
+
+        // Leaderboard list (top 10, skip 0 scores)
         leaderboardList.innerHTML = '';
-        scores.forEach(entry => {
+        scores.forEach((entry, idx) => {
           const li = document.createElement('li');
-          li.textContent = `${entry.name}: ${entry.score}`;
+          li.textContent = `${idx + 1}. ${entry.name}: ${entry.score}`;
           leaderboardList.appendChild(li);
         });
       });
