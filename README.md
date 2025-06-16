@@ -1,9 +1,8 @@
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Bora bora estudasses</title>
-  <subtitle>por Dawton Pessanha</subtitle>
+  <title>Math Master: The Brain Arena</title>
   <style>
     body {
       background: #111;
@@ -16,11 +15,7 @@
       height: 100vh;
       margin: 0;
     }
-
-    h1 {
-      margin-bottom: 1rem;
-    }
-
+    h1 { margin-bottom: 1rem; }
     #game-box {
       background: #222;
       padding: 2rem;
@@ -29,12 +24,7 @@
       text-align: center;
       width: 300px;
     }
-
-    #question {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-    }
-
+    #question { font-size: 1.5rem; margin-bottom: 1rem; }
     #answer, #name-input {
       width: 100%;
       padding: 0.5rem;
@@ -43,7 +33,6 @@
       border: none;
       margin-bottom: 1rem;
     }
-
     #submit, #restart {
       background: #00ffcc;
       color: #000;
@@ -54,37 +43,14 @@
       cursor: pointer;
       margin: 0.25rem;
     }
-
-    #submit:hover, #restart:hover {
-      background: #00c9a7;
-    }
-
-    #status {
-      margin-top: 1rem;
-    }
-
+    #submit:hover, #restart:hover { background: #00c9a7; }
+    #status { margin-top: 1rem; }
     .red { color: #ff5252; }
     .green { color: #00ffcc; }
-
-    #timer {
-      font-size: 1.2rem;
-      margin: 0.5rem 0;
-    }
-
-    #leaderboard {
-      margin-top: 2rem;
-      text-align: center;
-    }
-
-    #leaderboard h2 {
-      margin-bottom: 0.5rem;
-    }
-
-    #leaderboard ul {
-      list-style: none;
-      padding: 0;
-    }
-
+    #timer { font-size: 1.2rem; margin: 0.5rem 0; }
+    #leaderboard { margin-top: 2rem; text-align: center; }
+    #leaderboard h2 { margin-bottom: 0.5rem; }
+    #leaderboard ul { list-style: none; padding: 0; }
     #leaderboard li {
       background: #333;
       padding: 0.5rem;
@@ -92,9 +58,25 @@
       border-radius: 5px;
     }
   </style>
+  <!-- Firebase App (the core Firebase SDK) -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyDoVZwTuwx6Cgf1V5OsBx20CB26rcdx_Ls",
+      authDomain: "mathsgame-2bcb4.firebaseapp.com",
+      databaseURL: "https://mathsgame-2bcb4-default-rtdb.firebaseio.com",
+      projectId: "mathsgame-2bcb4",
+      storageBucket: "mathsgame-2bcb4.firebasestorage.app",
+      messagingSenderId: "316993513512",
+      appId: "1:316993513512:web:bc9aee590dfa7191ecad1d"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+  </script>
 </head>
 <body>
-  <h1>🧠 Bora bora estudasses</h1>
+  <h1>🧠 Math Master</h1>
   <div id="game-box">
     <input type="text" id="name-input" placeholder="Enter your name" />
     <div id="question">Loading...</div>
@@ -105,12 +87,10 @@
     <div id="status"></div>
     <div id="scoreboard">Score: 0 | Lives: 3</div>
   </div>
-
   <div id="leaderboard">
     <h2>🏆 Leaderboard</h2>
     <ul id="leaderboard-list"></ul>
   </div>
-
   <script>
     const questionEl = document.getElementById('question');
     const answerEl = document.getElementById('answer');
@@ -138,7 +118,6 @@
       const op = operators[getRandomInt(0, operators.length - 1)];
       let a = getRandomInt(1, level * 10);
       let b = getRandomInt(1, level * 10);
-
       if (op === '/') a = a * b;
       let question = `${a} ${op} ${b}`;
       currentAnswer = Math.round(eval(question) * 100) / 100;
@@ -186,7 +165,6 @@
     function checkAnswer() {
       const userAnswer = parseFloat(answerEl.value);
       if (isNaN(userAnswer)) return;
-
       if (Math.abs(userAnswer - currentAnswer) < 0.01) {
         score += 10;
         level += 0.5;
@@ -198,26 +176,28 @@
         lives--;
         checkGameOver(`❌ Incorrect! Correct answer: ${currentAnswer}`);
       }
-
       updateScoreboard();
     }
 
     function saveScore() {
       const name = nameInput.value.trim() || 'Anonymous';
-      const existing = JSON.parse(localStorage.getItem('mathLeaderboard') || '[]');
-      existing.push({ name, score });
-      existing.sort((a, b) => b.score - a.score);
-      localStorage.setItem('mathLeaderboard', JSON.stringify(existing.slice(0, 10)));
-      renderLeaderboard();
+      db.ref('leaderboard').push({ name, score });
+      setTimeout(renderLeaderboard, 1000); // Wait a bit for DB update
     }
 
     function renderLeaderboard() {
-      const scores = JSON.parse(localStorage.getItem('mathLeaderboard') || '[]');
-      leaderboardList.innerHTML = '';
-      scores.forEach(entry => {
-        const li = document.createElement('li');
-        li.textContent = `${entry.name}: ${entry.score}`;
-        leaderboardList.appendChild(li);
+      db.ref('leaderboard').orderByChild('score').limitToLast(10).once('value', snapshot => {
+        const scores = [];
+        snapshot.forEach(child => {
+          scores.push(child.val());
+        });
+        scores.reverse(); // Highest first
+        leaderboardList.innerHTML = '';
+        scores.forEach(entry => {
+          const li = document.createElement('li');
+          li.textContent = `${entry.name}: ${entry.score}`;
+          leaderboardList.appendChild(li);
+        });
       });
     }
 
@@ -243,9 +223,3 @@
   </script>
 </body>
 </html>
-<script>
-    // Initialize the game on page load
-    document.addEventListener('DOMContentLoaded', () => {
-      restartGame();
-    });
-  </script>
