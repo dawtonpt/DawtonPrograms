@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>Math Master: The Brain Arena</title>
-  <em><subtitle>Por: Dawton Pessanha </subtitle></em>
+ <p> <em><subtitle>Por: Dawton Pessanha </subtitle></em></p>
   <style>
     body {
       background: #111;
