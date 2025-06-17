@@ -264,7 +264,7 @@
 
         // Classic podium: 2nd, 1st, 3rd
         podiumContainer.innerHTML = '';
-        const podiumHeights = [90, 130, 70]; // px for 2nd, 1st, 3rd
+        const podiumHeights = [70, 110, 50]; // px for 2nd, 1st, 3rd
         const podiumClasses = ['silver', 'gold', 'bronze'];
         const podiumRanks = [2, 1, 3];
         for (let i = 0; i < 3; i++) {
