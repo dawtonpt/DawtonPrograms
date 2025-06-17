@@ -1,166 +1,263 @@
-<em>Eu</em> adoro a <Strong>Escola Superior de Hotelaria e Turismo do Estoril</strong>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>ChatEshte</title>
+  <title>My Video Library</title>
   <style>
     body {
       background: #181818;
       color: #eee;
       font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #232323;
+      padding: 1rem 0;
+      text-align: center;
+      font-size: 2rem;
+      font-weight: bold;
+      color: #00ffcc;
+      letter-spacing: 2px;
+      box-shadow: 0 2px 8px #00ffcc22;
+    }
+    #search-bar {
+      display: flex;
+      justify-content: center;
+      margin: 1.5rem 0 0.5rem 0;
+    }
+    #search-input {
+      width: 320px;
+      max-width: 90vw;
+      padding: 0.7rem 1rem;
+      border-radius: 5px;
+      border: none;
+      font-size: 1rem;
+      background: #222;
+      color: #eee;
+      box-shadow: 0 0 8px #00ffcc22;
+      outline: none;
+      margin-bottom: 0.5rem;
+    }
+    #library {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      padding: 2rem;
+    }
+    .video-card {
+      background: #222;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #00ffcc33;
+      width: 320px;
+      padding: 1rem;
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin: 0;
-      height: 100vh;
-      justify-content: center;
+      transition: transform 0.2s;
     }
-    #chat-container {
-      background: #232323;
-      border-radius: 10px;
-      box-shadow: 0 0 20px #00ffcc44;
-      width: 350px;
-      max-width: 95vw;
-      padding: 1.5rem;
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
+    .video-card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 20px #00ffcc66;
     }
-    #messages {
-      background: #111;
-      border-radius: 5px;
-      height: 250px;
-      overflow-y: auto;
-      padding: 0.5rem;
-      margin-bottom: 1rem;
-      font-size: 1rem;
-    }
-    .msg {
+    .video-thumb {
+      width: 100%;
+      border-radius: 8px;
       margin-bottom: 0.5rem;
-      word-break: break-word;
+      object-fit: cover;
+      height: 180px;
+      background: #111;
     }
-    .msg .user {
+    .video-title {
+      font-size: 1.2rem;
       font-weight: bold;
+      margin-bottom: 0.3rem;
       color: #00ffcc;
-      margin-right: 0.3em;
+      text-align: center;
     }
-    #input-row {
-      display: flex;
-      gap: 0.5rem;
-    }
-    #username, #message {
-      border: none;
-      border-radius: 5px;
-      padding: 0.5rem;
+    .video-desc {
       font-size: 1rem;
+      margin-bottom: 0.5rem;
+      color: #ccc;
+      text-align: center;
     }
-    #username {
-      width: 30%;
-      background: #222;
-      color: #eee;
-    }
-    #message {
-      flex: 1;
-      background: #222;
-      color: #eee;
-    }
-    #send {
+    .play-btn {
       background: #00ffcc;
-      color: #111;
+      color: #181818;
       border: none;
       border-radius: 5px;
       font-weight: bold;
-      padding: 0.5rem 1rem;
+      padding: 0.5rem 1.5rem;
       cursor: pointer;
+      font-size: 1rem;
+      margin-top: 0.5rem;
       transition: background 0.2s;
     }
-    #send:hover {
+    .play-btn:hover {
       background: #00c9a7;
     }
-    footer {
-      margin-top: 24px;
-      color: #00ffcc;
+    #player-modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0; top: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.85);
+      align-items: center;
+      justify-content: center;
+    }
+    #player-content {
+      background: #232323;
+      border-radius: 10px;
+      padding: 2rem;
+      box-shadow: 0 0 30px #00ffcc55;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 90vw;
+      max-height: 90vh;
+    }
+    #player-content video {
+      width: 640px;
+      max-width: 80vw;
+      max-height: 60vh;
+      border-radius: 8px;
+      background: #111;
+    }
+    #close-player {
+      margin-top: 1rem;
+      background: #ff5252;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
       font-weight: bold;
-      font-family: Arial, sans-serif;
+      padding: 0.5rem 1.5rem;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.2s;
+    }
+    #close-player:hover {
+      background: #c90000;
+    }
+    @media (max-width: 700px) {
+      #player-content video {
+        width: 98vw;
+        max-width: 98vw;
+      }
+      .video-card {
+        width: 95vw;
+      }
+      #search-input {
+        width: 95vw;
+      }
     }
   </style>
-  <!-- Firebase App (the core Firebase SDK) -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-  <script>
-    // Replace with your own Firebase config if you want to use this in production!
-    const firebaseConfig = {
-      apiKey: "AIzaSyDoVZwTuwx6Cgf1V5OsBx20CB26rcdx_Ls",
-      authDomain: "mathsgame-2bcb4.firebaseapp.com",
-      databaseURL: "https://mathsgame-2bcb4-default-rtdb.firebaseio.com",
-      projectId: "mathsgame-2bcb4",
-      storageBucket: "mathsgame-2bcb4.firebasestorage.app",
-      messagingSenderId: "316993513512",
-      appId: "1:316993513512:web:bc9aee590dfa7191ecad1d"
-    };
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
-  </script>
 </head>
 <body>
-  <div id="chat-container">
-    <h2>
-      <img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.eshte.pt%2Fdownloads%2FlogotipoESHTE03_trans.png&f=1&nofb=1&ipt=df74933efe2410cf0462071983c57da805379bb5cca6ceedcc64feb6c427d8bf" alt="ESHTE Logo" style="height: 32px; vertical-align: middle; margin-right: 8px;">
-      <span style="display: inline-block; width: 100%; text-align: center;">ChatEshte</span>
-    </h2>
-    <div id="messages"></div>
-    <div id="input-row">
-      <input type="text" id="username" placeholder="Name" maxlength="16" />
-      <input type="text" id="message" placeholder="Type a message..." maxlength="200" />
-      <button id="send">Send</button>
+  <header>
+    🎬 My Video Library
+  </header>
+  <div id="search-bar">
+    <input type="text" id="search-input" placeholder="Search movies or videos..." />
+  </div>
+  <div id="library"></div>
+
+  <div id="player-modal">
+    <div id="player-content">
+      <div id="player-title" class="video-title"></div>
+      <video id="player-video" controls></video>
+      <button id="close-player">Close</button>
     </div>
   </div>
-  <footer>
-    Made by DP
-  </footer>
+
   <script>
-    const messagesDiv = document.getElementById('messages');
-    const usernameInput = document.getElementById('username');
-    const messageInput = document.getElementById('message');
-    const sendBtn = document.getElementById('send');
+    // Example video data (replace/add with your own)
+    const videos = [
+      {
+        title: "Big Buck Bunny",
+        desc: "A short animated film by Blender Foundation.",
+        thumb: "https://peach.blender.org/wp-content/uploads/title_anouncement.jpg?x11217",
+        src: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+      },
+      {
+        title: "Sintel",
+        desc: "A fantasy short film by Blender Foundation.",
+        thumb: "https://upload.wikimedia.org/wikipedia/commons/7/75/Sintel_poster.jpg",
+        src: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4"
+      },
+      {
+        title: "Tears of Steel",
+        desc: "A live-action/CGI short film by Blender Foundation.",
+        thumb: "https://mango.blender.org/wp-content/themes/mango/images/project_images/tears_of_steel_poster.jpg",
+        src: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4"
+      }
+      // Add more videos here!
+    ];
 
-    // Listen for new messages
-    db.ref('chat').limitToLast(50).on('child_added', snapshot => {
-      const msg = snapshot.val();
-      const div = document.createElement('div');
-      div.className = 'msg';
-      div.innerHTML = `<span class="user">${escapeHTML(msg.user)}:</span> ${escapeHTML(msg.text)}`;
-      messagesDiv.appendChild(div);
-      messagesDiv.scrollTop = messagesDiv.scrollHeight;
-    });
+    const libraryDiv = document.getElementById('library');
+    const playerModal = document.getElementById('player-modal');
+    const playerVideo = document.getElementById('player-video');
+    const playerTitle = document.getElementById('player-title');
+    const closePlayer = document.getElementById('close-player');
+    const searchInput = document.getElementById('search-input');
 
-    function escapeHTML(str) {
-      return (str || '').replace(/[&<>"']/g, function(m) {
-        return ({
-          '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
-        })[m];
+    function renderLibrary(filter = "") {
+      libraryDiv.innerHTML = '';
+      const filterLower = filter.trim().toLowerCase();
+      let filtered = videos;
+      if (filterLower) {
+        filtered = videos.filter(
+          v =>
+            v.title.toLowerCase().includes(filterLower) ||
+            v.desc.toLowerCase().includes(filterLower)
+        );
+      }
+      if (filtered.length === 0) {
+        libraryDiv.innerHTML = `<div style="color:#ff5252;font-size:1.2rem;">No videos found.</div>`;
+        return;
+      }
+      filtered.forEach((vid, idx) => {
+        const card = document.createElement('div');
+        card.className = 'video-card';
+        card.innerHTML = `
+          <img class="video-thumb" src="${vid.thumb}" alt="${vid.title}">
+          <div class="video-title">${vid.title}</div>
+          <div class="video-desc">${vid.desc}</div>
+          <button class="play-btn" data-idx="${videos.indexOf(vid)}">Play</button>
+        `;
+        libraryDiv.appendChild(card);
       });
     }
 
-    function sendMessage() {
-      const user = usernameInput.value.trim() || "Anonymous";
-      const text = messageInput.value.trim();
-      if (!text) return;
-      db.ref('chat').push({
-        user,
-        text,
-        time: Date.now()
-      });
-      messageInput.value = '';
-    }
+    libraryDiv.addEventListener('click', function(e) {
+      if (e.target.classList.contains('play-btn')) {
+        const idx = e.target.getAttribute('data-idx');
+        const vid = videos[idx];
+        playerTitle.textContent = vid.title;
+        playerVideo.src = vid.src;
+        playerVideo.currentTime = 0;
+        playerVideo.play();
+        playerModal.style.display = 'flex';
+      }
+    });
 
-    sendBtn.addEventListener('click', sendMessage);
-    messageInput.addEventListener('keydown', e => {
-      if (e.key === 'Enter') sendMessage();
+    closePlayer.onclick = function() {
+      playerVideo.pause();
+      playerModal.style.display = 'none';
+      playerVideo.src = '';
+    };
+
+    playerModal.onclick = function(e) {
+      if (e.target === playerModal) {
+        closePlayer.onclick();
+      }
+    };
+
+    searchInput.addEventListener('input', function() {
+      renderLibrary(this.value);
     });
-    usernameInput.addEventListener('keydown', e => {
-      if (e.key === 'Enter') messageInput.focus();
-    });
+
+    renderLibrary();
   </script>
 </body>
 </html>
