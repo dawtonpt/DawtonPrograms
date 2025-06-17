@@ -157,10 +157,10 @@
 </head>
 <body>
   <!-- Math images in the margins -->
-  <img class="math-img topleft" src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Greek_lc_pi.svg" alt="Pi symbol" />
-  <img class="math-img topright" src="https://upload.wikimedia.org/wikipedia/commons/2/2b/Math_Integral_Symbol.svg" alt="Integral symbol" />
-  <img class="math-img bottomleft" src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Math-sqrt.svg" alt="Square root" />
-  <img class="math-img bottomright" src="https://upload.wikimedia.org/wikipedia/commons/6/6a/Math-sigma.svg" alt="Sigma symbol" />
+  <img class="math-img topleft" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.clipartmax.com%2Fpng%2Fmiddle%2F224-2241551_pi-symbol.png&f=1&nofb=1&ipt=ca65ceed73139ba92b2643127f7a70f2e3050d2729a9e548f662afb51a3ab6f9" alt="Pi symbol" />
+  <img class="math-img topright" src="https://www.animalia-life.club/qa/pictures/integral-sign.html" alt="Integral symbol" />
+  <img class="math-img bottomleft" src="https://www.pikpng.com/downpngs/iJwRooR_square-root-png-transparent-background-square-root-symbol/" alt="Square root" />
+  <img class="math-img bottomright" src="https://www.pngwing.com/en/free-png-zrksz" alt="Sigma symbol" />
   <img class="math-img leftcenter" src="https://openmoji.org/data/color/svg/1F522.svg" alt="123 emoji" />
   <img class="math-img rightcenter" src="https://openmoji.org/data/color/svg/1F4C8.svg" alt="Chart emoji" />
 
