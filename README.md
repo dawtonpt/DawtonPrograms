@@ -15,7 +15,6 @@
       justify-content: center;
       height: 100vh;
       margin: 0;
-      overflow: hidden;
     }
     h1 { margin-bottom: 1rem; }
     #game-box {
@@ -25,7 +24,6 @@
       box-shadow: 0 0 20px #00ffcc44;
       text-align: center;
       width: 300px;
-      z-index: 2;
     }
     #question { font-size: 1.5rem; margin-bottom: 1rem; }
     #answer, #name-input {
@@ -56,26 +54,24 @@
     #leaderboard ul { list-style: none; padding: 0; }
     #leaderboard li {
       background: #333;
-      padding: 0.3rem 0.5rem;
-      margin-bottom: 0.15rem;
+      padding: 0.5rem;
+      margin-bottom: 0.25rem;
       border-radius: 5px;
-      font-size: 1rem;
     }
-    /* Classic Podium styles */
-    .podium-classic {
+    /* Podium styles */
+    .podium-container {
       display: flex;
       justify-content: center;
       align-items: flex-end;
-      height: 160px;
-      margin-bottom: 1.2rem;
-      gap: 18px;
+      height: 140px;
+      margin-bottom: 1.5rem;
+      gap: 20px;
     }
     .podium-spot {
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-end;
-      width: 80px;
+      width: 70px;
       margin: 0 6px;
       position: relative;
     }
@@ -124,19 +120,6 @@
       z-index: 2;
       text-align: center;
     }
-    /* Math images in margins */
-    .math-img {
-      position: absolute;
-      z-index: 1;
-      opacity: 0.7;
-      pointer-events: none;
-    }
-    .math-img.topleft { top: 10px; left: 10px; width: 80px; }
-    .math-img.topright { top: 10px; right: 10px; width: 80px; }
-    .math-img.bottomleft { bottom: 10px; left: 10px; width: 80px; }
-    .math-img.bottomright { bottom: 10px; right: 10px; width: 80px; }
-    .math-img.leftcenter { left: 10px; top: 50%; transform: translateY(-50%); width: 60px; }
-    .math-img.rightcenter { right: 10px; top: 50%; transform: translateY(-50%); width: 60px; }
   </style>
   <!-- Firebase App (the core Firebase SDK) -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
@@ -156,14 +139,6 @@
   </script>
 </head>
 <body>
-  <!-- Math images in the margins -->
-  <img class="math-img topleft" src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Greek_lc_pi.svg" alt="Pi symbol" />
-  <img class="math-img topright" src="https://upload.wikimedia.org/wikipedia/commons/2/2b/Math_Integral_Symbol.svg" alt="Integral symbol" />
-  <img class="math-img bottomleft" src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Math-sqrt.svg" alt="Square root" />
-  <img class="math-img bottomright" src="https://upload.wikimedia.org/wikipedia/commons/6/6a/Math-sigma.svg" alt="Sigma symbol" />
-  <img class="math-img leftcenter" src="https://openmoji.org/data/color/svg/1F522.svg" alt="123 emoji" />
-  <img class="math-img rightcenter" src="https://openmoji.org/data/color/svg/1F4C8.svg" alt="Chart emoji" />
-
   <h1>🧠 Bora Estudasses</h1>
   <div id="game-box">
     <input type="text" id="name-input" placeholder="Enter your name" />
@@ -177,9 +152,7 @@
   </div>
   <div id="leaderboard">
     <h2>🏆 Leaderboard</h2>
-    <div class="podium-classic" id="podium-classic">
-      <!-- Podium spots will be injected here -->
-    </div>
+    <div class="podium-container" id="podium-container"></div>
     <ul id="leaderboard-list"></ul>
   </div>
   <script>
@@ -192,7 +165,7 @@
     const timeEl = document.getElementById('time');
     const nameInput = document.getElementById('name-input');
     const leaderboardList = document.getElementById('leaderboard-list');
-    const podiumClassic = document.getElementById('podium-classic');
+    const podiumContainer = document.getElementById('podium-container');
 
     let score = 0;
     let lives = 3;
@@ -290,7 +263,7 @@
         scores = scores.slice(0, 10);
 
         // Classic podium: 2nd, 1st, 3rd
-        podiumClassic.innerHTML = '';
+        podiumContainer.innerHTML = '';
         const podiumHeights = [90, 130, 70]; // px for 2nd, 1st, 3rd
         const podiumClasses = ['silver', 'gold', 'bronze'];
         const podiumRanks = [2, 1, 3];
@@ -305,7 +278,7 @@
             <div class="podium-bar ${podiumClasses[i]}" style="height:0px"></div>
             <div class="podium-rank">${entry ? podiumRanks[i] : ''}</div>
           `;
-          podiumClassic.appendChild(spot);
+          podiumContainer.appendChild(spot);
           // Animate height
           setTimeout(() => {
             const bar = spot.querySelector('.podium-bar');
@@ -342,6 +315,3 @@
 
     renderLeaderboard();
     restartGame();
-  </script>
-</body>
-</html>
