@@ -15,6 +15,7 @@
       justify-content: center;
       height: 100vh;
       margin: 0;
+      overflow: hidden;
     }
     h1 { margin-bottom: 1rem; }
     #game-box {
@@ -24,6 +25,7 @@
       box-shadow: 0 0 20px #00ffcc44;
       text-align: center;
       width: 300px;
+      z-index: 2;
     }
     #question { font-size: 1.5rem; margin-bottom: 1rem; }
     #answer, #name-input {
@@ -54,58 +56,87 @@
     #leaderboard ul { list-style: none; padding: 0; }
     #leaderboard li {
       background: #333;
-      padding: 0.5rem;
-      margin-bottom: 0.25rem;
+      padding: 0.3rem 0.5rem;
+      margin-bottom: 0.15rem;
       border-radius: 5px;
+      font-size: 1rem;
     }
-    /* Podium styles */
-    .podium-container {
+    /* Classic Podium styles */
+    .podium-classic {
       display: flex;
       justify-content: center;
       align-items: flex-end;
-      height: 120px;
-      margin-bottom: 1.5rem;
-      gap: 20px;
+      height: 160px;
+      margin-bottom: 1.2rem;
+      gap: 18px;
     }
-    .podium-bar {
+    .podium-spot {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: flex-end;
-      width: 60px;
-      background: #444;
+      width: 80px;
+      margin: 0 6px;
+      position: relative;
+    }
+    .podium-bar {
+      width: 100%;
       border-radius: 8px 8px 0 0;
       position: relative;
       transition: height 1s cubic-bezier(.68,-0.55,.27,1.55);
       overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
     }
-    .podium-bar.gold { background: linear-gradient(180deg, #ffe066 70%, #bfa900 100%); }
-    .podium-bar.silver { background: linear-gradient(180deg, #e0e0e0 70%, #a0a0a0 100%); }
-    .podium-bar.bronze { background: linear-gradient(180deg, #e6b980 70%, #a67c52 100%); }
+    .gold { background: linear-gradient(180deg, #ffe066 70%, #bfa900 100%); }
+    .silver { background: linear-gradient(180deg, #e0e0e0 70%, #a0a0a0 100%); }
+    .bronze { background: linear-gradient(180deg, #e6b980 70%, #a67c52 100%); }
     .podium-rank {
       position: absolute;
-      top: 5px;
+      bottom: 8px;
       left: 0;
       width: 100%;
       font-size: 1.2em;
       font-weight: bold;
       color: #222;
       text-shadow: 0 1px 2px #fff8;
+      z-index: 2;
+      text-align: center;
     }
     .podium-name {
-      margin-top: 10px;
+      margin-bottom: 2px;
       font-size: 1em;
       color: #fff;
       font-weight: bold;
       text-shadow: 0 1px 2px #2228;
+      z-index: 2;
+      word-break: break-word;
+      max-width: 90%;
+      text-align: center;
     }
     .podium-score {
-      font-size: 1.1em;
+      font-size: 0.95em;
       color: #222;
       font-weight: bold;
-      margin-bottom: 10px;
+      margin-bottom: 2px;
       text-shadow: 0 1px 2px #fff8;
+      z-index: 2;
+      text-align: center;
     }
+    /* Math images in margins */
+    .math-img {
+      position: absolute;
+      z-index: 1;
+      opacity: 0.7;
+      pointer-events: none;
+    }
+    .math-img.topleft { top: 10px; left: 10px; width: 80px; }
+    .math-img.topright { top: 10px; right: 10px; width: 80px; }
+    .math-img.bottomleft { bottom: 10px; left: 10px; width: 80px; }
+    .math-img.bottomright { bottom: 10px; right: 10px; width: 80px; }
+    .math-img.leftcenter { left: 10px; top: 50%; transform: translateY(-50%); width: 60px; }
+    .math-img.rightcenter { right: 10px; top: 50%; transform: translateY(-50%); width: 60px; }
   </style>
   <!-- Firebase App (the core Firebase SDK) -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
@@ -125,6 +156,14 @@
   </script>
 </head>
 <body>
+  <!-- Math images in the margins -->
+  <img class="math-img topleft" src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Greek_lc_pi.svg" alt="Pi symbol" />
+  <img class="math-img topright" src="https://upload.wikimedia.org/wikipedia/commons/2/2b/Math_Integral_Symbol.svg" alt="Integral symbol" />
+  <img class="math-img bottomleft" src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Math-sqrt.svg" alt="Square root" />
+  <img class="math-img bottomright" src="https://upload.wikimedia.org/wikipedia/commons/6/6a/Math-sigma.svg" alt="Sigma symbol" />
+  <img class="math-img leftcenter" src="https://openmoji.org/data/color/svg/1F522.svg" alt="123 emoji" />
+  <img class="math-img rightcenter" src="https://openmoji.org/data/color/svg/1F4C8.svg" alt="Chart emoji" />
+
   <h1>🧠 Bora Estudasses</h1>
   <div id="game-box">
     <input type="text" id="name-input" placeholder="Enter your name" />
@@ -138,8 +177,8 @@
   </div>
   <div id="leaderboard">
     <h2>🏆 Leaderboard</h2>
-    <div class="podium-container" id="podium-container">
-      <!-- Podium bars will be injected here -->
+    <div class="podium-classic" id="podium-classic">
+      <!-- Podium spots will be injected here -->
     </div>
     <ul id="leaderboard-list"></ul>
   </div>
@@ -153,7 +192,7 @@
     const timeEl = document.getElementById('time');
     const nameInput = document.getElementById('name-input');
     const leaderboardList = document.getElementById('leaderboard-list');
-    const podiumContainer = document.getElementById('podium-container');
+    const podiumClassic = document.getElementById('podium-classic');
 
     let score = 0;
     let lives = 3;
@@ -250,23 +289,26 @@
         scores.sort((a, b) => b.score - a.score);
         scores = scores.slice(0, 10);
 
-        // Podium animation for top 3
-        podiumContainer.innerHTML = '';
-        const podiumHeights = [90, 120, 70]; // px for 2nd, 1st, 3rd
+        // Classic podium: 2nd, 1st, 3rd
+        podiumClassic.innerHTML = '';
+        const podiumHeights = [90, 130, 70]; // px for 2nd, 1st, 3rd
         const podiumClasses = ['silver', 'gold', 'bronze'];
+        const podiumRanks = [2, 1, 3];
         for (let i = 0; i < 3; i++) {
-          const entry = scores[i];
-          const bar = document.createElement('div');
-          bar.className = 'podium-bar ' + (podiumClasses[i] || '');
-          bar.style.height = '0px';
-          bar.innerHTML = `
-            <div class="podium-rank">${i + 1}</div>
-            <div class="podium-score">${entry ? entry.score : ''}</div>
+          const idx = [1, 0, 2][i]; // 2nd, 1st, 3rd
+          const entry = scores[idx];
+          const spot = document.createElement('div');
+          spot.className = 'podium-spot';
+          spot.innerHTML = `
             <div class="podium-name">${entry ? entry.name : ''}</div>
+            <div class="podium-score">${entry ? entry.score : ''}</div>
+            <div class="podium-bar ${podiumClasses[i]}" style="height:0px"></div>
+            <div class="podium-rank">${entry ? podiumRanks[i] : ''}</div>
           `;
-          podiumContainer.appendChild(bar);
+          podiumClassic.appendChild(spot);
           // Animate height
           setTimeout(() => {
+            const bar = spot.querySelector('.podium-bar');
             bar.style.height = entry ? `${podiumHeights[i]}px` : '0px';
           }, 100);
         }
