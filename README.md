@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<em>Eu</em> adoro a <Strong>Escola Superior de Hotelaria e Turismo do Estoril</strong>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
