@@ -1,40 +1,160 @@
 <!DOCTYPE html>
-<html lang="pt">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="refresh" content="0; url=https://glat.site" />
-    <title>Calendário ESHTE, Moodle ESHTE, Email ESHTE, GLAT e Recursos Académicos</title>
-    
-    <meta name="description" content="Aceda ao Calendário ESHTE, Moodle ESHTE, Google Drive ESHTE, Email ESHTE e a recursos académicos para estudantes e docentes. Informação sobre cursos, como Gestão do Lazer e Animação Turística (GLAT), e ferramentas online da ESHTE.">
-    
-    <meta name="keywords" content="Calendário ESHTE, ESHTE, Moodle ESHTE, Académicos ESHTE, Google Drive ESHTE, Email ESHTE, ESHTE GLAT, Gestão do Lazer e Animação Turística ESHTE, Cursos ESHTE, Licenciatura ESHTE, Horários ESHTE, Plataforma ESHTE, Biblioteca ESHTE, Recursos Académicos ESHTE, Serviços Online ESHTE, GLAT ESHTE, Animação Turística ESHTE, Ensino Superior ESHTE, Turismo ESHTE, ESHTE contactos, ESHTE estudantes, ESHTE professores">
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portefólio AGT</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap');
 
-    <!-- Structured Data (opcional para SEO avançado) -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "CollegeOrUniversity",
-      "name": "Escola Superior de Hotelaria e Turismo do Estoril (ESHTE)",
-      "url": "https://glat.site",
-      "sameAs": [
-        "https://www.eshte.pt",
-        "https://moodle.eshte.pt",
-        "https://drive.google.com",
-        "mailto:email@eshte.pt"
-      ],
-      "department": {
-        "@type": "EducationalOccupationalProgram",
-        "name": "Gestão do Lazer e Animação Turística (GLAT)",
-        "educationalProgramMode": "Presencial",
-        "provider": {
-          "@type": "CollegeOrUniversity",
-          "name": "ESHTE"
+        body {
+            margin: 0;
+            font-family: 'Merriweather', serif;
+            background: url('papel-textura.jpg') repeat;
+            background-size: cover;
+            color: #3a3a3a;
         }
-      }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        header {
+            padding: 20px;
+            text-align: center;
+            background-color: rgba(245, 240, 230, 0.95);
+            box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .menu-lateral {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 200px;
+            height: 100%;
+            background-color: rgba(245, 240, 230, 0.98);
+            box-shadow: 2px 0px 5px rgba(0,0,0,0.1);
+            padding-top: 60px;
+            z-index: 1000;
+            transform: translateX(-180px); /* Esconde quase tudo */
+            transition: transform 0.3s ease;
+        }
+
+        .menu-lateral:hover {
+            transform: translateX(0); /* Mostra o menu */
+        }
+
+        .menu-lateral a {
+            display: block;
+            padding: 15px;
+            color: #3a3a3a;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .menu-lateral a:hover {
+            background-color: rgba(200, 180, 160, 0.3);
+        }
+
+        .content {
+            margin-left: 20px; /* Espaço pequeno quando menu está escondido */
+            padding: 20px;
+            transition: margin-left 0.3s ease;
+        }
+
+        .menu-lateral:hover ~ .content {
+            margin-left: 200px; /* Move o conteúdo quando menu está visível */
+        }
+
+        section {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        section.active {
+            display: block;
+            opacity: 1;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(245, 240, 230, 0.95);
+            box-shadow: 0px -2px 5px rgba(0,0,0,0.1);
+            margin-top: 40px;
+        }
+
+        .titulo {
+            font-size: 2.5em;
+            color: #5a3e36;
+            margin-top: 20px;
+        }
+
+        section h2 {
+            border-bottom: 2px solid #5a3e36;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="menu-lateral">
+    <a onclick="mostrarSecao('inicio')">Início</a>
+    <a onclick="mostrarSecao('secao1')">Secção 1</a>
+    <a onclick="mostrarSecao('secao2')">Secção 2</a>
+    <a onclick="mostrarSecao('reflexao')">Reflexão Final</a>
+    <a onclick="mostrarSecao('contacto')">Contacto</a>
+</div>
+
+<div class="content">
+    <header>
+        <h1 class="titulo">Portefólio AGT</h1>
+    </header>
+
+    <section id="inicio" class="active">
+        <h2>Bem-vindo</h2>
+        <p>Este portefólio apresenta uma análise crítica individual da unidade curricular Gestão e Programação Culturais — GESTÃO DO LAZER E ANIMAÇÃO TURÍSTICA | DIURNO E PÓS-LABORAL | 2025/2026.</p>
+        <p>Navegue pelas secções para explorar as minhas reflexões, análises e conclusões académicas.</p>
+    </section>
+
+    <section id="secao1">
+        <h2>Secção 1</h2>
+        <p>Conteúdo da Secção 1 aqui...</p>
+    </section>
+
+    <section id="secao2">
+        <h2>Secção 2</h2>
+        <p>Conteúdo da Secção 2 aqui...</p>
+    </section>
+
+    <section id="reflexao">
+        <h2>Reflexão Final</h2>
+        <p>Conteúdo da Reflexão Final aqui...</p>
+    </section>
+
+    <section id="contacto">
+        <h2>Contacto</h2>
+        <p>Informações de contacto aqui...</p>
+    </section>
+
+    <footer>
+        <p>© 2025 Portefólio AGT. Todos os direitos reservados.</p>
+    </footer>
+</div>
+
+<script>
+    function mostrarSecao(secaoId) {
+        const secoes = document.querySelectorAll('section');
+        secoes.forEach(secao => {
+            secao.classList.remove('active');
+        });
+        document.getElementById(secaoId).classList.add('active');
     }
-    </script>
-  </head>
-  <body>
-    <p>Está a ser redirecionado. Se não for automático, <a href="https://glat.site">clique aqui</a>.</p>
-  </body>
+</script>
+
+</body>
 </html>
