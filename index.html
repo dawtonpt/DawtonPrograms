@@ -386,6 +386,51 @@
             display: block;
         }
 
+        /* --- NOVA DIVISÃO À VOLTA DO CALENDÁRIO --- */
+        .calendar-division {
+            border: 2px solid rgba(120,100,85,0.18);
+            padding: 12px;
+            border-radius: 12px;
+            background: linear-gradient(180deg, rgba(208, 203, 203, 0.65), rgba(250,248,244,0.55));
+            box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+            margin: 36px 0 28px;
+            padding: 16px;
+        }
+
+        /* Ajuste leve para que o .calendar-wrap fique bem dentro da divisão */
+        .calendar-division .calendar-wrap {
+            background: transparent; /* mantém o estilo anterior mas evita duplicar fundos */
+            padding: 8px;
+            border-radius: 8px;
+        }
+
+        /* --- DIVISÃO INTRODUTÓRIA ENTRE VÍDEO/IMAGEM/INFORMAÇÃO E O CALENDÁRIO --- */
+        .intro-division {
+            border: 1px solid rgba(120,100,85,0.12);
+            padding: 14px;
+            border-radius: 10px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(250,248,244,0.7));
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            margin: 36px 0 200px; /* aumenta espaço superior e inferior para separar melhor das outras divisões */
+            padding: 18px; /* ligeiro aumento do padding para maior "respiro" */
+        }
+
+        .intro-division .video-intro {
+            margin-bottom: 120px;
+        }
+
+        .intro-division figure {
+            margin: 12px 0;
+            max-width: 640px;
+        }
+
+        /* Linha separadora leve entre divisões (mais visível e com maior margem) */
+        .divider-line {
+            height: 0px;
+            margin: 36px 0; /* maior margem para separar introdução do calendário */
+            background: rgba(120,100,85,0.10);
+        }
+
         @media (max-width: 600px) {
             .calendar {
                 gap: 3px;
@@ -397,6 +442,18 @@
                 min-width: 100%; /* Em telas pequenas, detalhe ocupa toda a largura */
             }
         }
+
+        @media (max-width: 720px) {
+		.intro-division { margin: 18px 0 20px; padding: 12px; }
+		.divider-line { margin: 18px 0; }
+		.calendar-division { margin: 20px 0 18px; padding: 12px; }
+        .activity-cards {
+            gap: 14px;
+            grid-template-columns: 1fr;
+            margin-top: 12px;
+        }
+        .video-intro { margin-bottom: 12px; }
+	}
     </style>
 </head>
 <body>
@@ -427,39 +484,49 @@
     <section id="secao1" class="active" aria-hidden="false"> 
         <h2>Secção 1 — Análise crítica da programação 2025</h2>
 
-        <div class="video-intro" aria-hidden="false" aria-label="Vídeo de introdução LU.CA">
-            <div class="embed-responsive">
-                <iframe src="https://www.youtube.com/embed/vR1SssoimrM"
-                        title="Vídeo de introdução LU.CA"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen></iframe>
+        <!-- Agrupar vídeo, imagem e parágrafos introdutórios numa divisão separada -->
+        <div class="intro-division" aria-label="Introdução LU.CA — vídeo e informação">
+            <div class="video-intro" aria-hidden="false" aria-label="Vídeo de introdução LU.CA">
+                <div class="embed-responsive">
+                    <iframe src="https://www.youtube.com/embed/vR1SssoimrM"
+                            title="Vídeo de introdução LU.CA"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                </div>
             </div>
+
+            <figure style="max-width:640px;margin:12px 0;">
+                <img src="https://lucateatroluisdecamoes.pt/wp-content/uploads/2018/09/fachada-portas-abertas-fernando-guerra.png" alt="Fachada LU.CA — Teatro Luís de Camões" style="width:100%;height:auto;">
+                <figcaption>Fachada do LU.CA — Teatro Luís de Camões (fonte: site oficial)</figcaption>
+            </figure>
+
+            <p>O LU.CA – Teatro Luís de Camões apresenta uma programação orientada para infância e juventude, misturando espetáculos, cinema e atividades educativas. A seleção de outubro 2025 privilegia temáticas de imaginação e empatia, com propostas que facilitam a mediação pedagógica e o envolvimento escolar.</p>
+
+            <p>Abaixo encontra o calendário visual (transparente) e, em seguida, os cartões com imagem, sinopse e datas de cada atividade referida.</p>
         </div>
-        <figure style="max-width:640px;margin:12px 0;">
-            <img src="https://lucateatroluisdecamoes.pt/wp-content/uploads/2018/09/fachada-portas-abertas-fernando-guerra.png" alt="Fachada LU.CA — Teatro Luís de Camões" style="width:100%;height:auto;">
-            <figcaption>Fachada do LU.CA — Teatro Luís de Camões (fonte: site oficial)</figcaption>
-        </figure>
 
-        <p>O LU.CA – Teatro Luís de Camões apresenta uma programação orientada para infância e juventude, misturando espetáculos, cinema e atividades educativas. A seleção de outubro 2025 privilegia temáticas de imaginação e empatia, com propostas que facilitam a mediação pedagógica e o envolvimento escolar.</p>
+        <!-- Linha separadora antes do calendário -->
+        <hr class="divider-line" aria-hidden="true">
 
-        <p>Abaixo encontra o calendário visual (transparente) e, em seguida, os cartões com imagem, sinopse e datas de cada atividade referida.</p>
+        <!-- Substituir o bloco existente do calendário por este wrapper (mantém o conteúdo original dentro) -->
+        <div class="calendar-division" aria-label="Divisão do calendário LU.CA — Outubro 2025">
+			<div class="calendar-wrap" aria-labelledby="luca-cal-title">
+				<h3 class="cal-title" id="luca-cal-title">Calendário LU.CA — Outubro 2025</h3>
 
-        <div class="calendar-wrap" aria-label="Calendário LU.CA — Outubro 2025">
-            <h3 class="cal-title">Calendário LU.CA — Outubro 2025</h3>
-
-            <div class="calendar" role="grid" aria-readonly="true" id="luca-calendar">
-                <div class="day-header" role="columnheader">Seg</div>
-                <div class="day-header" role="columnheader">Ter</div>
-                <div class="day-header" role="columnheader">Qua</div>
-                <div class="day-header" role="columnheader">Qui</div>
-                <div class="day-header" role="columnheader">Sex</div>
-                <div class="day-header" role="columnheader">Sáb</div>
-                <div class="day-header" role="columnheader">Dom</div>
+				<div class="calendar" role="grid" aria-readonly="true" id="luca-calendar">
+					<div class="day-header" role="columnheader">Seg</div>
+					<div class="day-header" role="columnheader">Ter</div>
+					<div class="day-header" role="columnheader">Qua</div>
+					<div class="day-header" role="columnheader">Qui</div>
+					<div class="day-header" role="columnheader">Sex</div>
+					<div class="day-header" role="columnheader">Sáb</div>
+					<div class="day-header" role="columnheader">Dom</div>
 
                 </div>
 
             <div class="activity-cards" aria-label="Detalhes das atividades — imagens, sinopses e datas">
-                
+                <br>
+                <br>
                 <div class="activity-card" id="card-soprar">
                     <img src="https://lucateatroluisdecamoes.pt/wp-content/uploads/2025/07/soprar-1024x683.jpg" alt="Criança a soprar bolhas em espetáculo de Soprar para ver">
                     <h4>Soprar para ver</h4>
@@ -487,6 +554,8 @@
                     <p>E se começássemos por soprar? Soprar faz bem à saúde e liberta o corpo para ver melhor. Soprar faz virar páginas, faz mudar histórias, faz descobrir carecas, faz atear fogos e apagar incêndios. Soprar faz crescer os dentes.</p>
                     <p>Soprar para ver é uma viagem poética e imersiva a paisagens surpreendentes, através de jogos de sombras e texturas. Um convite a abrandar e a prestar atenção às coisas que estão à nossa volta, mas a que não prestamos atenção.</p>
                     <p><a href="https://lucateatroluisdecamoes.es/event/soprar-para-ver/" target="_blank" rel="noopener">Mais informações</a></p>
+                    <br>
+                    <br>
                 </div>
 
                 <div class="activity-card" id="card-quatro">
@@ -512,6 +581,8 @@
                     <p class="sinopse-title">Sinopse</p>
                     <p>Uma sessão de histórias onde quatro patas são suficientes para porem a vida dos humanos de pernas para o ar. Farejam asneiras e fazem trinta por uma linha, mas depois de entrarem numa família torna-se impossível viver sem estas quatro patas de focinho curioso e orelhas atentas.</p>
                     <p><a href="https://lucateatroluisdecamoes.es/event/quatro-patas/" target="_blank" rel="noopener">Mais informações</a></p>
+                    <br>
+                    <br>
                 </div>
 
                 <div class="activity-card" id="card-calamity">
@@ -537,6 +608,8 @@
                     <p class="sinopse-title">Sinopse</p>
                     <p>As aventuras de Martha Jane, uma corajosa menina do velho Oeste. 1863, Oeste Americano. Martha Jane, uma menina valente e destemida, que cuida dos cavalos e conduz a carroça da família, perde a mãe num acidente. Durante a grande travessia que levará a família até ao estado de Oregon, onde toda a comunidade planeia construir as suas casas e criar uma vila, Martha corta o cabelo e começa a vestir calças para se adaptar aos novos desafios que ocupam os seus dias. O escândalo que o seu carácter provoca na comunidade obriga-a a desafiar os perigos do mundo sozinha, partindo numa aventura por paisagens inesquecíveis em busca dos seus sonhos.</p>
                     <p><a href="https://lucateatroluisdecamoes.es/event/calamity/" target="_blank" rel="noopener">Mais informações</a></p>
+                    <br>
+                    <br>
                 </div>
 
                 <div class="activity-card" id="card-pais">
