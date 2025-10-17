@@ -5,14 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portefólio AGT</title>
     <style>
+        /* Importação de fontes */
         @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap');
 
+        /* Estilos globais e body */
         body {
             margin: 0;
             font-family: 'Merriweather', serif;
+            /* Supondo que 'papel-textura.jpg' existe no diretório */
             background: url('papel-textura.jpg') repeat;
             background-size: cover;
-            color: #3a3a3a;
+            color: #2b2b2b;
+            font-size: 17px;
+            line-height: 1.25;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
         }
 
         h1, h2, h3 {
@@ -26,6 +34,7 @@
             box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
         }
 
+        /* Menu Lateral (Sidebar) */
         .menu-lateral {
             position: fixed;
             top: 0;
@@ -36,12 +45,13 @@
             box-shadow: 2px 0px 5px rgba(0,0,0,0.1);
             padding-top: 60px;
             z-index: 1000;
-            transform: translateX(-180px); /* Esconde quase tudo */
-            transition: transform 0.3s ease;
+            transform: translateX(-180px);
+            transition: transform 0.33s cubic-bezier(.77,0,.18,1);
         }
 
-        .menu-lateral:hover {
-            transform: translateX(0); /* Mostra o menu */
+        .menu-lateral:hover,
+        .menu-lateral:focus-within {
+            transform: translateX(0);
         }
 
         .menu-lateral a {
@@ -51,32 +61,46 @@
             text-decoration: none;
             font-weight: bold;
             cursor: pointer;
-            transition: background-color 0.2s ease;
+            transition: background-color 0.18s ease;
+            text-align: left;
         }
 
-        .menu-lateral a:hover {
+        .menu-lateral a:hover,
+        .menu-lateral a:focus {
             background-color: rgba(200, 180, 160, 0.3);
+            outline: none;
         }
 
+        /* Conteúdo principal */
         .content {
-            margin-left: 20px; /* Espaço pequeno quando menu está escondido */
+            margin-left: 20px;
             padding: 20px;
-            transition: margin-left 0.3s ease;
+            transition: margin-left 0.33s cubic-bezier(.77,0,.18,1);
+            position: relative;
         }
 
-        .menu-lateral:hover ~ .content {
-            margin-left: 200px; /* Move o conteúdo quando menu está visível */
+        .menu-lateral:hover ~ .content,
+        .menu-lateral:focus-within ~ .content {
+            margin-left: 200px;
         }
 
+        /* Secções de Conteúdo */
         section {
-            display: none;
+            max-height: 0;
+            overflow: hidden;
             opacity: 0;
-            transition: opacity 0.5s ease;
+            transition: opacity 0.45s ease, max-height 0.45s ease;
+            margin-bottom: 0;
+            background-color: rgba(255, 255, 255, 0.9); /* Adicionado fundo leve para legibilidade */
+            padding: 10px 20px 5px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
         }
 
         section.active {
-            display: block;
+            max-height: 5000px; /* Aumentado o max-height */
             opacity: 1;
+            margin-bottom: 20px;
         }
 
         footer {
@@ -98,62 +122,602 @@
             padding-bottom: 5px;
             margin-bottom: 15px;
         }
+
+        /* Tipografia de Conteúdo */
+        .content,
+        .content p,
+        .content li,
+        .content figure figcaption {
+            text-align: justify;
+            hyphens: auto;
+            -webkit-hyphens: auto;
+            -ms-hyphens: auto;
+            color: #222;
+        }
+
+        .content h1,
+        .content h2,
+        .content h3 {
+            text-align: left;
+            color: #5a3e36;
+        }
+
+        .content p,
+        .content li,
+        .content figcaption {
+            font-size: 1rem;
+            line-height: 1.25;
+            margin-bottom: 0.8rem;
+        }
+
+        /* Float de imagem em Secção 1 */
+        #secao1 figure img {
+            float: left;
+            margin: 0 18px 12px 0;
+            max-width: 40%;
+            width: auto;
+            height: auto;
+        }
+
+        #secao1::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        /* Responsividade geral */
+        @media (max-width: 720px) {
+            #secao1 figure img {
+                float: none;
+                display: block;
+                margin: 12px auto;
+                max-width: 100%;
+            }
+            body { font-size: 15px; line-height: 1.2; }
+            .content p, .content li { line-height: 1.2; }
+            .content { margin-left: 0; } /* Remove margem lateral em telas pequenas */
+            .menu-lateral:hover ~ .content,
+            .menu-lateral:focus-within ~ .content {
+                margin-left: 20px; /* Ajusta margem para não ficar sobreposto */
+            }
+        }
+
+        /* --- Estilos Adicionais para o Novo Layout das Atividades --- */
+        .activity-card h4 {
+            font-size: 1.3em;
+            color: #5a3e36;
+            margin-top: 0;
+        }
+        
+        .activity-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 10px;
+            padding: 8px 0;
+            border-top: 1px dashed #d1c9bd;
+            border-bottom: 1px dashed #d1c9bd;
+        }
+
+        .detail-group {
+            min-width: 45%;
+        }
+
+        .detail-group strong {
+            display: block;
+            font-size: 0.85rem;
+            color: #7d6a63;
+            text-transform: uppercase;
+            margin-bottom: 2px;
+        }
+
+        .detail-group p {
+            font-size: 0.95rem;
+            margin: 0;
+            line-height: 1.1;
+            color: #2b2b2b;
+            text-align: left;
+        }
+
+        .detail-group ul {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 5px;
+        }
+
+        .detail-group ul li {
+            font-size: 0.9rem;
+            line-height: 1.2;
+            margin-bottom: 2px;
+            text-align: left;
+        }
+
+        .activity-card p.sinopse-title {
+            font-weight: bold;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            color: #5a3e36;
+            text-align: left;
+        }
+
+        /* --- Estilos do Calendário --- */
+        .calendar-wrap {
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.6); 
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .cal-title {
+            font-size: 1.4em;
+            margin: 0 0 15px 0;
+            color: #5a3e36;
+            text-align: center;
+        }
+
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px; 
+        }
+
+        .day-header {
+            font-weight: bold;
+            color: #5a3e36;
+            text-align: center;
+            padding: 8px 2px;
+            font-size: 0.9em;
+        }
+
+        .day {
+            background: rgba(240, 240, 240, 0.7); 
+            padding: 3px;
+            border-radius: 6px;
+            position: relative;
+            min-height: 130px; 
+            border: 1px solid rgba(200, 180, 160, 0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .day.empty { 
+            background: transparent; 
+            box-shadow: none; 
+            border: none;
+            min-height: 40px; 
+        }
+
+        .day-number {
+            font-size: 0.9rem;
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            color: #fff;
+            background-color: #5a3e36;
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+        
+        .day-events {
+            margin-top: 28px; 
+            width: 100%;
+        }
+
+        .cal-link { 
+            text-decoration: none; 
+            color: inherit; 
+            display:block; 
+            margin-bottom: 4px;
+            text-align: center;
+        }
+
+        .cal-thumb {
+            width: 90%; 
+            height: 48px; 
+            object-fit: cover;
+            border-radius: 4px;
+            display: block;
+            margin: 0 auto 2px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .cal-label {
+            font-family: 'Merriweather', serif;
+            font-size: 0.65rem; 
+            font-weight: bold;
+            text-align: center;
+            color: #333;
+            background: rgba(245, 245, 245, 0.95); 
+            padding: 2px 4px;
+            border-radius: 4px;
+            line-height: 1;
+            display: block;
+            max-width: 95%;
+            margin: 0 auto;
+        }
+
+        .activity-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+
+        .activity-card p.meta {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+
+        /* Estilos do Vídeo - MANTIDOS GRANDES */
+        .video-intro {
+            max-width: 960px; /* Mantém largura máxima ampla */
+            margin: 14px auto;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+            background: #000;
+        }
+
+        .video-intro .embed-responsive {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* Proporção 16:9 */
+            height: 0;
+        }
+
+        .video-intro iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+            display: block;
+        }
+
+        @media (max-width: 600px) {
+            .calendar {
+                gap: 3px;
+            }
+            .day {
+                min-height: 100px;
+            }
+            .detail-group {
+                min-width: 100%; /* Em telas pequenas, detalhe ocupa toda a largura */
+            }
+        }
     </style>
 </head>
 <body>
 
-<div class="menu-lateral">
-    <a onclick="mostrarSecao('inicio')">Início</a>
-    <a onclick="mostrarSecao('secao1')">Secção 1</a>
-    <a onclick="mostrarSecao('secao2')">Secção 2</a>
-    <a onclick="mostrarSecao('reflexao')">Reflexão Final</a>
-    <a onclick="mostrarSecao('contacto')">Contacto</a>
+<div class="menu-lateral" role="navigation" aria-label="Navegação principal">
+    <a tabindex="0" onclick="mostrarSecao('inicio')">Início</a>
+    <a tabindex="0" onclick="mostrarSecao('secao1')">Secção 1</a>
+    <a tabindex="0" onclick="mostrarSecao('secao2')">Secção 2</a>
+    <a tabindex="0" onclick="mostrarSecao('secao3')">Secção 3</a>
+    <a tabindex="0" onclick="mostrarSecao('reflexao')">Reflexão Final</a>
+    <a tabindex="0" onclick="mostrarSecao('referencias')">Referências</a>
 </div>
 
-<div class="content">
+<div class="content" id="main-content">
     <header>
         <h1 class="titulo">Portefólio AGT</h1>
     </header>
 
-    <section id="inicio" class="active">
+    <section id="inicio" class="active" aria-hidden="false">
         <h2>Bem-vindo</h2>
-        <p>Este portefólio apresenta uma análise crítica individual da unidade curricular Gestão e Programação Culturais — GESTÃO DO LAZER E ANIMAÇÃO TURÍSTICA | DIURNO E PÓS-LABORAL | 2025/2026.</p>
-        <p>Navegue pelas secções para explorar as minhas reflexões, análises e conclusões académicas.</p>
+        <p>Este trabalho foi realizado no âmbito da unidade curricular Gestão e Programação Culturais, integrada no 3.º ano da Licenciatura em Gestão do Lazer e Animação Turística, lecionada na Escola Superior de Hotelaria e Turismo do Estoril (ESHTE). O exercício foi proposto pela Professora Ana Gonçalves e consiste na análise crítica de uma programação cultural contemporânea, articulando aspetos de gestão, participação e mediação cultural.</p>
+
+        <p>Informações sobre a docente responsável: Ana Cláudia dos Santos Gonçalves é Professora Adjunta na ESHTE desde 2004 e investigadora sénior no Centro de Estudos Geográficos (CEG/TERRA, IGOT-ULisboa) desde 2013. Concluiu o Pós‑Doutoramento em Geografia (IGOT‑ULisboa, 2019) e o Doutoramento em Literary and Cultural Studies (European PhD, Universidade de Lisboa / University of South Wales, 2013). É autora do livro Reinventing a Small, Worldly City (Routledge, 2017), coordenadora e avaliadora em vários projetos e agências nacionais e europeias, e orientou dezenas de dissertações e projetos na área do turismo, cultura e educação.</p>
+
+        <p>Navegue pelas secções para explorar a análise, as evidências e as reflexões finais presentes neste portefólio.</p>
     </section>
 
-    <section id="secao1">
-        <h2>Secção 1</h2>
-        <p>Conteúdo da Secção 1 aqui...</p>
+    <section id="secao1" aria-hidden="true"> 
+        <h2>Secção 1 — Análise crítica da programação 2025</h2>
+
+        <div class="video-intro" aria-hidden="false" aria-label="Vídeo de introdução LU.CA">
+            <div class="embed-responsive">
+                <iframe src="https://www.youtube.com/embed/vR1SssoimrM"
+                        title="Vídeo de introdução LU.CA"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+            </div>
+        </div>
+        <figure style="max-width:640px;margin:12px 0;">
+            <img src="https://lucateatroluisdecamoes.pt/wp-content/uploads/2018/09/fachada-portas-abertas-fernando-guerra.png" alt="Fachada LU.CA — Teatro Luís de Camões" style="width:100%;height:auto;">
+            <figcaption>Fachada do LU.CA — Teatro Luís de Camões (fonte: site oficial)</figcaption>
+        </figure>
+
+        <p>O LU.CA – Teatro Luís de Camões apresenta uma programação orientada para infância e juventude, misturando espetáculos, cinema e atividades educativas. A seleção de outubro 2025 privilegia temáticas de imaginação e empatia, com propostas que facilitam a mediação pedagógica e o envolvimento escolar.</p>
+
+        <p>Abaixo encontra o calendário visual (transparente) e, em seguida, os cartões com imagem, sinopse e datas de cada atividade referida.</p>
+
+        <div class="calendar-wrap" aria-label="Calendário LU.CA — Outubro 2025">
+            <h3 class="cal-title">Calendário LU.CA — Outubro 2025</h3>
+
+            <div class="calendar" role="grid" aria-readonly="true" id="luca-calendar">
+                <div class="day-header" role="columnheader">Seg</div>
+                <div class="day-header" role="columnheader">Ter</div>
+                <div class="day-header" role="columnheader">Qua</div>
+                <div class="day-header" role="columnheader">Qui</div>
+                <div class="day-header" role="columnheader">Sex</div>
+                <div class="day-header" role="columnheader">Sáb</div>
+                <div class="day-header" role="columnheader">Dom</div>
+
+                </div>
+
+            <div class="activity-cards" aria-label="Detalhes das atividades — imagens, sinopses e datas">
+                
+                <div class="activity-card" id="card-soprar">
+                    <img src="https://lucateatroluisdecamoes.pt/wp-content/uploads/2025/07/soprar-1024x683.jpg" alt="Criança a soprar bolhas em espetáculo de Soprar para ver">
+                    <h4>Soprar para ver</h4>
+                    <p class="meta">Datas no calendário: 3–12 outubro 2025</p>
+                    <p>Sinopse: Uma proposta performativa que explora a imaginação e a perceção sensorial na infância. O projeto privilegia a experiência estética e a participação ativa das crianças, combinando teatro, manipulação de objetos e mediação pedagógica.</p>
+                    <p><a href="https://lucateatroluisdecamoes.es/event/soprar-para-ver/" target="_blank" rel="noopener">Mais informações</a></p>
+                </div>
+
+                <div class="activity-card" id="card-quatro">
+                    <img src="https://lucateatroluisdecamoes.pt/wp-content/uploads/2025/07/leiturasadivinhas-31-250208-1024x682.jpg" alt="Imagem de Quatro Patas: Leitura dramatizada com crianças e animais de peluche.">
+                    <h4>Quatro Patas</h4>
+                    <p class="meta">Datas no calendário: 18–19 outubro 2025</p>
+                    
+                    <div class="activity-details">
+                        <div class="detail-group">
+                            <strong>Formato</strong>
+                            <p>Sessão de leitura, Histórias</p>
+                        </div>
+                        <div class="detail-group">
+                            <strong>Público-alvo / Duração</strong>
+                            <p>A partir dos 3 anos</p>
+                        </div>
+                        <div class="detail-group">
+                            <strong>Preço</strong>
+                            <p>€1 (preço único)</p>
+                        </div>
+                    </div>
+                    
+                    <p class="sinopse-title">Sinopse</p>
+                    <p>Uma sessão de histórias onde quatro patas são suficientes para porem a vida dos humanos de pernas para o ar. Farejam asneiras e fazem trinta por uma linha, mas depois de entrarem numa família torna-se impossível viver sem estas quatro patas de focinho curioso e orelhas atentas.</p>
+                    <p><a href="https://lucateatroluisdecamoes.es/event/quatro-patas/" target="_blank" rel="noopener">Mais informações</a></p>
+                </div>
+
+                <div class="activity-card" id="card-calamity">
+                    <img src="https://lucateatroluisdecamoes.pt/wp-content/uploads/2025/07/calamity-5-1024x576.jpg" alt="Cena do filme Calamity, uma jovem em vestimentas antigas">
+                    <h4>Calamity</h4>
+                    <p class="meta">Datas no calendário: 18–19 outubro 2025</p>
+                    
+                    <div class="activity-details">
+                        <div class="detail-group">
+                            <strong>Formato</strong>
+                            <p>Filme / Sessão de cinema</p>
+                        </div>
+                        <div class="detail-group">
+                            <strong>Classificação Etária</strong>
+                            <p>M/6 (Maiores de 6 anos)</p>
+                        </div>
+                        <div class="detail-group">
+                            <strong>Preço</strong>
+                            <p>€3 (preço único)</p>
+                        </div>
+                    </div>
+                    
+                    <p class="sinopse-title">Sinopse</p>
+                    <p>As aventuras de Martha Jane, uma corajosa menina do velho Oeste. 1863, Oeste Americano. Martha Jane, uma menina valente e destemida, que cuida dos cavalos e conduz a carroça da família, perde a mãe num acidente. Durante a grande travessia que levará a família até ao estado de Oregon, onde toda a comunidade planeia construir as suas casas e criar uma vila, Martha corta o cabelo e começa a vestir calças para se adaptar aos novos desafios que ocupam os seus dias. O escândalo que o seu carácter provoca na comunidade obriga-a a desafiar os perigos do mundo sozinha, partindo numa aventura por paisagens inesquecíveis em busca dos seus sonhos.</p>
+                    <p><a href="https://lucateatroluisdecamoes.es/event/calamity/" target="_blank" rel="noopener">Mais informações</a></p>
+                </div>
+
+                <div class="activity-card" id="card-pais">
+                    <img src="https://lucateatroluisdecamoes.pt/wp-content/uploads/2025/07/hoteleuropa-oqueequeospais-antonio-gomes-horizontal-1024x730.jpg" alt="Cena do espetáculo O que é que os meus pais fazem, com atores em palco">
+                    <h4>O que é que os meus pais fazem quando não estão comigo</h4>
+                    <p class="meta">Datas no calendário: 24–30 outubro 2025</p>
+                    
+                    <div class="activity-details">
+                        <div class="detail-group">
+                            <strong>Formato</strong>
+                            <p>Espetáculo de Teatro</p>
+                        </div>
+                        <div class="detail-group">
+                            <strong>Classificação Etária</strong>
+                            <p>M/6 (Maiores de 6 anos)</p>
+                        </div>
+                        <div class="detail-group" style="width: 100%;"> <strong>Preços</strong>
+                            <ul>
+                                <li>**Escolas:** €3 < 18 anos / €1 Escolas TEIP / Acompanhantes isentos</li>
+                                <li>**Famílias:** €3 < 18 anos / €7 > 18 anos / Descontos aplicáveis</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <p class="sinopse-title">Sinopse</p>
+                    <p>O que acontece na vida dos pais que os filhos nunca veem, o que imaginam os filhos que os pais fazem quando não estão juntos? Que pessoas veem, que atividades têm? Existe alguma relação entre o que imaginam os filhos e o que acontece na vida dos pais? Muitos pais dizem que vão para o trabalho, mas será mesmo verdade? E, afinal de contas, o que é o trabalho e para que serve?</p>
+                    <p><a href="https://lucateatroluisdecamoes.es/event/o-que-e-que-os-meus-pais-fazem-quando-nao-estao-comigo/" target="_blank" rel="noopener">Mais informações</a></p>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <section id="secao2">
+    <section id="secao2" aria-hidden="true">
         <h2>Secção 2</h2>
-        <p>Conteúdo da Secção 2 aqui...</p>
+        <p>Conteúdo para a Secção 2, conforme enunciado.</p>
+    </section>
+    
+    <section id="secao3" aria-hidden="true">
+        <h2>Secção 3</h2>
+        <p>Conteúdo para a Secção 3, conforme enunciado.</p>
     </section>
 
-    <section id="reflexao">
+    <section id="reflexao" aria-hidden="true">
         <h2>Reflexão Final</h2>
-        <p>Conteúdo da Reflexão Final aqui...</p>
+        <p>Reflexões finais e conclusões do portefólio.</p>
     </section>
 
-    <section id="contacto">
-        <h2>Contacto</h2>
-        <p>Informações de contacto aqui...</p>
+    <section id="referencias" aria-hidden="true"> 
+        <h2>Referências</h2> 
+        <p>Lista de referências bibliográficas, fontes de imagem e outras citações.</p>
     </section>
 
     <footer>
-        <p>© 2025 Portefólio AGT. Todos os direitos reservados.</p>
+        <p>Portefólio AGT — ESHTE</p>
     </footer>
 </div>
 
 <script>
-    function mostrarSecao(secaoId) {
-        const secoes = document.querySelectorAll('section');
-        secoes.forEach(secao => {
-            secao.classList.remove('active');
-        });
-        document.getElementById(secaoId).classList.add('active');
+    // DADOS DO CALENDÁRIO MANTIDOS
+    const eventosOutubro = [
+        { 
+            nome: 'Soprar para ver', 
+            link: 'https://lucateatroluisdecamoes.es/event/soprar-para-ver/', 
+            imagem: 'https://lucateatroluisdecamoes.pt/wp-content/uploads/2025/07/soprar-1024x683.jpg', 
+            inicio: 3, 
+            fim: 12,
+            label: 'Soprar para ver'
+        },
+        { 
+            nome: 'Quatro Patas', 
+            link: 'https://lucateatroluisdecamoes.es/event/quatro-patas/', 
+            imagem: 'https://lucateatroluisdecamoes.pt/wp-content/uploads/2025/07/leiturasadivinhas-31-250208-1024x682.jpg', 
+            inicio: 18, 
+            fim: 19,
+            label: 'Quatro Patas' 
+        },
+        { 
+            nome: 'Calamity', 
+            link: 'https://lucateatroluisdecamoes.es/event/calamity/', 
+            imagem: 'https://lucateatroluisdecamoes.pt/wp-content/uploads/2025/07/calamity-5-1024x576.jpg', 
+            inicio: 18, 
+            fim: 19,
+            label: 'Calamity'
+        },
+        { 
+            nome: 'O que é que os meus pais fazem...', 
+            link: 'https://lucateatroluisdecamoes.es/event/o-que-e-que-os-meus-pais-fazem-quando-nao-estao-comigo/', 
+            imagem: 'https://lucateatroluisdecamoes.pt/wp-content/uploads/2025/07/hoteleuropa-oqueequeospais-antonio-gomes-horizontal-1024x730.jpg', 
+            inicio: 24, 
+            fim: 30,
+            label: 'O que é que os meus pais fazem...' 
+        }
+    ];
+
+    /**
+     * Função para obter os eventos de um dia específico.
+     * @param {number} dia - O dia do mês (1 a 31).
+     * @returns {Array} - Lista de eventos que ocorrem nesse dia.
+     */
+    function obterEventosDoDia(dia) {
+        return eventosOutubro.filter(evento => dia >= evento.inicio && dia <= evento.fim);
     }
+
+    /**
+     * Função para gerar dinamicamente o calendário.
+     */
+    function gerarCalendario() {
+        const calendarEl = document.getElementById('luca-calendar');
+        if (!calendarEl) return;
+
+        const numDiasOutubro = 31;
+        // 1 de Outubro de 2025 é uma Quarta-feira. 
+        // 0=Dom, 1=Seg, 2=Ter, 3=Qua, 4=Qui, 5=Sex, 6=Sáb
+        const diaInicio = 1; // Dia 1 do mês
+        const diaDaSemanaInicio = 3; // Quarta-feira (0-6, onde 0 é Dom e 1 é Seg)
+        
+        // Offset para preencher as células vazias antes do dia 1.
+        // Se o dia da semana for 'n', precisamos de 'n-1' células vazias (Seg=1, Ter=2, Qua=3...)
+        let offset = diaDaSemanaInicio - 1; 
+
+        // Adicionar células vazias
+        for (let i = 0; i < offset; i++) {
+            const emptyDay = document.createElement('div');
+            emptyDay.className = 'day empty';
+            emptyDay.setAttribute('role', 'gridcell');
+            calendarEl.appendChild(emptyDay);
+        }
+
+        // Adicionar dias do mês
+        for (let dia = 1; dia <= numDiasOutubro; dia++) {
+            const dayEl = document.createElement('div');
+            dayEl.className = 'day';
+            dayEl.setAttribute('role', 'gridcell');
+            
+            // Número do dia
+            dayEl.innerHTML = `<div class="day-number">${dia}</div>`;
+
+            // Contentor para os eventos, abaixo do número do dia
+            const eventsContainer = document.createElement('div');
+            eventsContainer.className = 'day-events';
+            
+            const eventos = obterEventosDoDia(dia);
+
+            eventos.forEach(evento => {
+                const linkEl = document.createElement('a');
+                linkEl.className = 'cal-link';
+                linkEl.href = evento.link;
+                linkEl.target = '_blank';
+                linkEl.rel = 'noopener';
+                
+                // Imagem
+                // Assumimos que o 'alt' será o 'nome' do evento.
+                linkEl.innerHTML = `<img class="cal-thumb" src="${evento.imagem}" alt="${evento.nome} — imagem">`;
+                
+                // Label (rótulo)
+                let labelText = evento.label;
+                if (evento.inicio === evento.fim) {
+                     // Evento de um só dia
+                    labelText = `${evento.label} — ${evento.inicio} out`; 
+                } else if (dia === evento.inicio && evento.inicio !== evento.fim) {
+                    // Primeiro dia de um evento longo
+                    labelText = `${evento.label} — ${evento.inicio}–${evento.fim} out`;
+                } else if (dia > evento.inicio && dia < evento.fim) {
+                    // Dia intermédio (opcional: poderia ser um label mais curto ou vazio)
+                    labelText = `${evento.label} (Continua)`;
+                } else if (dia === evento.fim && evento.inicio !== evento.fim) {
+                    // Último dia de um evento longo
+                    labelText = `${evento.label} — Fim`;
+                }
+                
+                linkEl.innerHTML += `<div class="cal-label">${labelText}</div>`;
+
+                eventsContainer.appendChild(linkEl);
+            });
+            
+            dayEl.appendChild(eventsContainer);
+            calendarEl.appendChild(dayEl);
+        }
+    }
+
+    /**
+     * Função para alternar a visibilidade das secções (original do seu código).
+     * @param {string} id - O ID da secção a mostrar.
+     */
+    function mostrarSecao(id) {
+        document.querySelectorAll('.content section').forEach(s => {
+            if (s.id === id) {
+                s.classList.add('active');
+                s.setAttribute('aria-hidden', 'false');
+                s.scrollIntoView({behavior: 'smooth', block: 'start'});
+            } else {
+                s.classList.remove('active');
+                s.setAttribute('aria-hidden', 'true');
+            }
+        });
+    }
+
+    // Inicializa o calendário e a secção de início
+    document.addEventListener('DOMContentLoaded', () => {
+        gerarCalendario(); // Gera o calendário correto
+        // ALTERADO: Inicializa com "secao1" visível (Análise Crítica/Vídeo)
+        mostrarSecao('secao1'); 
+    });
 </script>
 
 </body>
