@@ -14,7 +14,8 @@
             font-family: 'Merriweather', serif;
             /* Supondo que 'papel-textura.jpg' existe no diretório */
             background: url('papel-textura.jpg') repeat;
-            background-size: cover;
+            background-size: auto;
+            background-repeat: repeat;
             color: #2b2b2b;
             font-size: 17px;
             line-height: 1.25;
@@ -414,7 +415,7 @@
         <h1 class="titulo">Portefólio AGT</h1>
     </header>
 
-    <section id="inicio" class="active" aria-hidden="false">
+    <section id="inicio" aria-hidden="true">
         <h2>Bem-vindo</h2>
         <p>Este trabalho foi realizado no âmbito da unidade curricular Gestão e Programação Culturais, integrada no 3.º ano da Licenciatura em Gestão do Lazer e Animação Turística, lecionada na Escola Superior de Hotelaria e Turismo do Estoril (ESHTE). O exercício foi proposto pela Professora Ana Gonçalves e consiste na análise crítica de uma programação cultural contemporânea, articulando aspetos de gestão, participação e mediação cultural.</p>
 
@@ -423,7 +424,7 @@
         <p>Navegue pelas secções para explorar a análise, as evidências e as reflexões finais presentes neste portefólio.</p>
     </section>
 
-    <section id="secao1" aria-hidden="true"> 
+    <section id="secao1" class="active" aria-hidden="false"> 
         <h2>Secção 1 — Análise crítica da programação 2025</h2>
 
         <div class="video-intro" aria-hidden="false" aria-label="Vídeo de introdução LU.CA">
@@ -463,7 +464,28 @@
                     <img src="https://lucateatroluisdecamoes.pt/wp-content/uploads/2025/07/soprar-1024x683.jpg" alt="Criança a soprar bolhas em espetáculo de Soprar para ver">
                     <h4>Soprar para ver</h4>
                     <p class="meta">Datas no calendário: 3–12 outubro 2025</p>
-                    <p>Sinopse: Uma proposta performativa que explora a imaginação e a perceção sensorial na infância. O projeto privilegia a experiência estética e a participação ativa das crianças, combinando teatro, manipulação de objetos e mediação pedagógica.</p>
+
+                    <div class="activity-details">
+                        <div class="detail-group">
+                            <strong>Formato</strong>
+                            <p>Teatro e Música</p>
+                        </div>
+                        <div class="detail-group">
+                            <strong>Classificação Etária</strong>
+                            <p>M/6 (Maiores de 6 anos)</p>
+                        </div>
+                        <div class="detail-group" style="width: 100%;"> <strong>Preços</strong>
+                            <ul>
+                                <li>**Escolas:** €3 < 18 anos / €1 Escolas TEIP / Acompanhantes isentos</li>
+                                <li>**Famílias:** €3 < 18 anos / €7 > 18 anos</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <p class="sinopse-title">Sinopse</p>
+                    <p>Há as coisas que vemos. Essas estão lá. São visíveis. E há as coisas que não vemos. Essas também estão lá. São invisíveis, porque não as vemos, mas estão lá. Porque vemos umas coisas e não vemos outras?</p>
+                    <p>E se começássemos por soprar? Soprar faz bem à saúde e liberta o corpo para ver melhor. Soprar faz virar páginas, faz mudar histórias, faz descobrir carecas, faz atear fogos e apagar incêndios. Soprar faz crescer os dentes.</p>
+                    <p>Soprar para ver é uma viagem poética e imersiva a paisagens surpreendentes, através de jogos de sombras e texturas. Um convite a abrandar e a prestar atenção às coisas que estão à nossa volta, mas a que não prestamos atenção.</p>
                     <p><a href="https://lucateatroluisdecamoes.es/event/soprar-para-ver/" target="_blank" rel="noopener">Mais informações</a></p>
                 </div>
 
@@ -712,10 +734,10 @@
         });
     }
 
-    // Inicializa o calendário e a secção de início
+    // Inicializa o calendário e a secção inicial
     document.addEventListener('DOMContentLoaded', () => {
         gerarCalendario(); // Gera o calendário correto
-        // ALTERADO: Inicializa com "secao1" visível (Análise Crítica/Vídeo)
+        // Inicializa com "secao1" visível (Análise Crítica/Vídeo)
         mostrarSecao('secao1'); 
     });
 </script>
