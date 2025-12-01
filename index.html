@@ -32,6 +32,11 @@
             text-align: center;
             background-color: rgba(245, 240, 230, 0.95);
             box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+            transition: display 0.3s ease;
+        }
+
+        header.hidden {
+            display: none;
         }
 
         /* Menu Lateral (Sidebar) */
@@ -77,6 +82,7 @@
             padding: 20px;
             transition: margin-left 0.33s cubic-bezier(.77,0,.18,1);
             position: relative;
+            min-height: 100vh;
         }
 
         .menu-lateral:hover ~ .content,
@@ -91,16 +97,79 @@
             opacity: 0;
             transition: opacity 0.45s ease, max-height 0.45s ease;
             margin-bottom: 0;
-            background-color: rgba(255, 255, 255, 0.9); /* Adicionado fundo leve para legibilidade */
-            padding: 10px 20px 5px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 0;
+            border-radius: 12px;
+            box-shadow: none;
+            display: none;
+            position: relative;
         }
 
         section.active {
-            max-height: 5000px; /* Aumentado o max-height */
+            max-height: 5000px;
             opacity: 1;
-            margin-bottom: 20px;
+            margin-bottom: 0;
+            padding: 40px;
+            display: block;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            border: 3px solid #5a3e36;
+            min-height: 90vh;
+        }
+
+        section#secao1.active::before {
+            content: "SECÇÃO 1";
+            position: absolute;
+            top: -35px;
+            left: 20px;
+            background: #5a3e36;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 0.9em;
+            letter-spacing: 1px;
+        }
+
+        section#secao2.active::before {
+            content: "SECÇÃO 2";
+            position: absolute;
+            top: -35px;
+            left: 20px;
+            background: #8b5a3c;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 0.9em;
+            letter-spacing: 1px;
+        }
+
+        section#secao3.active::before {
+            content: "SECÇÃO 3";
+            position: absolute;
+            top: -35px;
+            left: 20px;
+            background: #a0654c;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 0.9em;
+            letter-spacing: 1px;
+        }
+
+        section#referencias.active::before {
+            content: "REFERÊNCIAS";
+            position: absolute;
+            top: -35px;
+            left: 20px;
+            background: #6b5244;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 0.9em;
+            letter-spacing: 1px;
         }
 
         footer {
@@ -127,7 +196,10 @@
         .content,
         .content p,
         .content li,
-        .content figure figcaption {
+        .content figure figcaption,
+        section p,
+        section li,
+        section figcaption {
             text-align: justify;
             hyphens: auto;
             -webkit-hyphens: auto;
@@ -148,6 +220,10 @@
             font-size: 1rem;
             line-height: 1.25;
             margin-bottom: 0.8rem;
+        }
+        
+        .content ul {
+             margin-bottom: 0.8rem;
         }
 
         /* Float de imagem em Secção 1 */
@@ -593,8 +669,8 @@ Geograficamente, o público é composto predominantemente por residentes na Áre
                         </div>
                         <div class="detail-group" style="width: 100%;"> <strong>Preços</strong>
                             <ul>
-                                <li>**Escolas:** €3 < 18 anos / €1 Escolas TEIP / Acompanhantes isentos</li>
-                                <li>**Famílias:** €3 < 18 anos / €7 > 18 anos</li>
+                                <li>Escolas: €3 < 18 anos / €1 Escolas TEIP / Acompanhantes isentos</li>
+                                <li>Famílias: €3 < 18 anos / €7 > 18 anos</li>
                             </ul>
                         </div>
                     </div>
@@ -675,8 +751,8 @@ Geograficamente, o público é composto predominantemente por residentes na Áre
                         </div>
                         <div class="detail-group" style="width: 100%;"> <strong>Preços</strong>
                             <ul>
-                                <li>**Escolas:** €3 < 18 anos / €1 Escolas TEIP / Acompanhantes isentos</li>
-                                <li>**Famílias:** €3 < 18 anos / €7 > 18 anos / Descontos aplicáveis</li>
+                                <li>Escolas: €3 < 18 anos / €1 Escolas TEIP / Acompanhantes isentos</li>
+                                <li>Famílias: €3 < 18 anos / €7 > 18 anos / Descontos aplicáveis</li>
                             </ul>
                         </div>
                     </div>
@@ -688,14 +764,11 @@ Geograficamente, o público é composto predominantemente por residentes na Áre
             </div>
         </div>
 
-        <!-- Visualização de PDFs: Programação 2023 e 2024 -->
         <div class="pdf-section" aria-label="Programação dos anos anteriores">
             <h3>Análise da programação dos anos anteriores</h3>
             <div class="pdf-grid">
-                <!-- Card PDF 2023 -->
                 <article class="pdf-card" role="article" aria-labelledby="pdf23-title">
                     <div class="pdf-thumb" tabindex="0" role="button" data-src="programacao2023.pdf" aria-label="Abrir Programação 2023">
-                        <!-- Simples ícone SVG representativo -->
                         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                             <path d="M6 2h7l5 5v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z" stroke="#6b4f45" stroke-width="1.3" stroke-linejoin="round" stroke-linecap="round"/>
                             <path d="M13 2v6h6" stroke="#6b4f45" stroke-width="1.3" stroke-linejoin="round" stroke-linecap="round"/>
@@ -711,7 +784,6 @@ Geograficamente, o público é composto predominantemente por residentes na Áre
                     </div>
                 </article>
 
-                <!-- Card PDF 2024 -->
                 <article class="pdf-card" role="article" aria-labelledby="pdf24-title">
                     <div class="pdf-thumb" tabindex="0" role="button" data-src="programacao2024.pdf" aria-label="Abrir Programação 2024">
                         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -731,7 +803,6 @@ Geograficamente, o público é composto predominantemente por residentes na Áre
             </div>
         </div>
 
-        <!-- Modal / Lightbox (inserido junto da secção) -->
         <div id="pdf-modal" class="pdf-modal" role="dialog" aria-modal="true" aria-hidden="true">
             <div class="pdf-modal-content" role="document">
                 <div class="pdf-modal-toolbar">
@@ -749,10 +820,79 @@ Geograficamente, o público é composto predominantemente por residentes na Áre
     </section>
 
     <section id="secao2" aria-hidden="true">
-        <h2>Secção 2</h2>
-        <p>---.</p>
+        <h2>Secção 2 — Reflexão Crítica de Iniciativa Cultural Local</h2>
+        
+        <p>No dia 2 de novembro de 2025, assisti o espetáculo "N`Ó É?" no <strong>Teatro Independente de Oeiras (TIO)</strong>.</p>
+        
+        <figure style="text-align: center; margin: 20px 0;">
+            <img src="https://i.ibb.co/fzLMW93N/image.png" alt="Fachada do Teatro Independente de Oeiras (TIO)" style="max-width: 80%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+            <figcaption style="margin-top: 10px; font-style: italic; color: #666; font-size: 0.9em;">Teatro Independente de Oeiras</figcaption>
+        </figure>
+        
+        <p>Esta peça, com encenação de Sandra José e interpretação de Jorge Rosa e Mariana Goldani Rosa, é classificada oficialmente como "Para todos", mas é promovida especificamente como sendo destinada a bebés. Apresenta-se como um "dia de festa" num mundo lúdico onde os artistas realizam movimentos coreografados, interagem com diversos objetos e movimentam-se pelo público. A produção esteve anteriormente em cartaz também no Teatro-Estúdio António Assunção, em Almada.</p>
+
+        <h3>Análise do Público-Alvo</h3>
+        <p>A comunicação oficial classifica a peça como "Para todos". Por observação direta e tendo em conta os conceitos trabalhados nas aulas, apercebi-me que o público divide-se em três grupos:</p>
+        <ul>
+            <li><strong>Público Primário:</strong> O alvo principal da experiência. Composto pela primeira infância (bebés e crianças muito jovens), sendo estes os participantes mais envolvidos com o espetáculo através da sua natureza sensorial e interativa.</li>
+            <li><strong>Público Secundário:</strong> O público que detém o poder de compra, tendo pesquisado a oferta cultural e escolhido participar na iniciativa. Estes sendo os pais, encarregados de educação ou avós que acompanhavam as crianças.</li>
+            <li><strong>Público Terciário:</strong> Um público "colateral". Identifiquei estes como sendo irmãos mais velhos (talvez na faixa dos 7-12 anos) que assistiam à peça por terem de acompanhar a família, mas que, pela sua idade já não demonstravam o mesmo nível de interesse que os mais jovens.</li>
+        </ul>
+        
+        <hr>
+
+        <h3>Estratégia de Marketing e Comunicação</h3>
+        <p>A estratégia de marketing para esta peça em específico esteve direcionada ao público secundário, que efetivamente toma a decisão de compra. A promoção foi delegada aos agentes culturais que acolheram o espetáculo.</p>
+        <ul>
+            <li><strong>Produto:</strong> Um espetáculo de teatro sensorial e visual, focado na primeira infância. O facto de o espetáculo ter acontecido em Oeiras e em Almada, permitiu alcançar diferentes mercados locais.</li>
+            <li><strong>Preço:</strong>A política de preços apresenta uma segmentação pensada para incentivar a participação em grupo. Estão disponíveis um bilhete “Normal”, no valor de 8 €, e um bilhete “Família (3 pax)” por 22,50 €. Embora os valores possam parecer relativamente elevados, importa considerar que o evento se realiza em Oeiras, o terceiro concelho com maior poder de compra em Portugal (INE, 2023). Não foi possível encontrar dados relativos aos preços praticados na exibição realizada em Almada..  </li>
+            <li><strong>Distribuição:</strong> A peça foi distribuída em teatros localizados em concelhos com forte densidade populacional e familiar (Oeiras e Almada). A venda de bilhetes é multicanal, incluindo a plataforma Ticketline, lojas aderentes e a bilheteira física, maximizando a acessibilidade.</li>
+            <li><strong>Promoção:</strong> A comunicação foi gerida pelos locais de apresentação. O TIO, por exemplo, promoveu a peça nos seus canais digitais (Instagram, Facebook), nos meios de comunicação oficiais do concelho de Oeiras e através de publicidade exterior (billboards) no concelho, aumentando a visibilidade junto da comunidade local.</li>
+        </ul>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin: 30px 0; align-items: start;">
+            <figure style="margin: 0; text-align: center;">
+                <img src="https://i.ibb.co/spBrhz8w/Imagem-Whats-App-2025-11-21-s-17-30-01-29ef8562.jpg" alt="Publicação no Instagram do TIO sobre N'Ó É?" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                <figcaption style="margin-top: 10px; font-style: italic; color: #666; font-size: 0.9em;">Publicação no Instagram do TIO</figcaption>
+            </figure>
+            <figure style="margin: 0; text-align: center;">
+                <img src="https://i.ibb.co/zTPh9knv/Imagem-Whats-App-2025-11-21-s-22-40-44-70a8d961.jpg" alt="Cartaz em frente ao Oeiras Parque" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                <figcaption style="margin-top: 10px; font-style: italic; color: #666; font-size: 0.9em;">Cartaz em frente ao Oeiras Parque</figcaption>
+            </figure>
+            <figure style="margin: 0; text-align: center;">
+                <img src="https://i.ibb.co/cSkv5Wdm/Imagem-Whats-App-2025-11-21-s-17-15-57-5080f4b2.jpg" alt="Cartaz digital" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                <figcaption style="margin-top: 10px; font-style: italic; color: #666; font-size: 0.9em;">Cartaz digital</figcaption>
+            </figure>
+        </div>
+        
+        <hr>
+
+        <h3>Logística</h3>
+        <p>A organização de um espetáculo focado num público tão jovem acarreta desafios logísticos específicos que pareceram ser bem geridos pela produção e pelo TIO:</p>
+        <ul>
+            <li><strong>Gestão da Sala:</strong> A informação da bilheteira refere uma redução de 20% da capacidade da sala para este espetáculo, garantindo assim mais espaço de circulação e conforto para famílias com crianças pequenas, que são naturalmente mais irrequietas ou podem precisar de sair momentaneamente. 
+                <br> Antes do início da peça, quando o público já está sentado no auditório, os acompanhantes recebem um briefing onde são preparados para o espetáculo. Neste, é explicado o funcionamento da peça e, são instruídos de que não se devem preocupar se os bebés chorarem durante a apresentação sendo completamente normal e não representando qualquer problema. Adicionalmente, é dada aos espectadores a liberdade de se movimentarem pelo auditório, mudando de lugar conforme desejarem, e as crianças têm permissão para se locomoverem livremente pela sala, desde que respeitem a divisão física do espaço e não ultrapassem o pano que separa o "palco" do resto do auditório. Estas medidas existem para criar um ambiente acolhedor e permitindo que tanto as crianças como os pais se sintam confortáveis e à vontade durante todo o espetáculo.
+                <br><br>
+                <figure style="text-align: center; margin: 20px 0;">
+                    <img src="https://i.ibb.co/Dg1m42nM/image.png" alt="Auditório durante espetáculo N'Ó É?" style="max-width: 80%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                    <figcaption style="margin-top: 10px; font-style: italic; color: #666; font-size: 0.9em;">Auditório no TIO utilizado para a exibição da peça</figcaption>
+                </figure>
+            </li>
+            <li><strong>Acessibilidade e Acolhimento:</strong> O teatro demonstra uma preocupação com a inclusão ao disponibilizar lugares específicos para mobilidade reduzida (geridos via email). Havendo ainda uma equipa de "Frente de sala", que auxilia as pessoas a encontarem os seus lugares e mantém as crianças entretidas antes da peça começar.</li>
+            <li><strong>Calendarização:</strong> A minha visita ocorreu num domingo (2 de novembro). A programação deste tipo de espetáculo ao fim de semana é uma decisão logística fundamental para captar o público-alvo familiar, que possui maior disponibilidade fora dos horários laborais e escolares.</li>
+        </ul>
+        
+        <hr>
+
+        <h3>Impacto Cultural</h3>
+        <p>O impacto cultural de iniciativas como "N`Ó É?" não é apenas o entretenimento, atuando em várias frentes:</p>
+        <ul>
+            <li><strong>Formação de Públicos:</strong> Para muitas das crianças presentes, esta foi possivelmente uma das suas primeiras experiências num ambiente de teatro. A exposição precoce às artes performativas, num formato lúdico e adequado, é fundamental para normalizar o consumo de cultura e criar os públicos mais novos.</li>
+            <li><strong>Desenvolvimento Infantil:</strong> O espetáculo, focado no sensorial e no visual, estimula a imaginação, a curiosidade e a capacidade de compreensão de narrativas não-literais, contribuindo positivamente para o desenvolvimento cognitivo na primeira infância.</li>
+            <li><strong>Valor para os Acompanhantes:</strong> Para o público secundário (pais/adultos), a iniciativa oferece uma oportunidade de partilha de um momento de qualidade em família. Reforça também o valor da educação cultural, permitindo aos pais observar os seus filhos a interagir com a arte num contexto social e formativo.</li>
+            <li><strong>Dinamização Local:</strong> Ao ser programada em teatros como o TIO ou o Teatro-Estúdio António Assunção, a peça contribui para a dinamização da oferta cultural local, posicionando os concelhos de Oeiras e Almada como locais que investem ativamente na cultura para todas as idades.</li>
+        </ul>
     </section>
-    
     <section id="secao3" aria-hidden="true">
         <h2>Secção 3</h2>
         <p>---.</p>
@@ -764,7 +904,11 @@ Geograficamente, o público é composto predominantemente por residentes na Áre
     <p>Este portefólio foi elaborado pelo aluno Dawton Pessanha (14787) no âmbito da cadeira Gestão e Programação Culturais, lecionada pela Professora Ana Gonçalves na Escola Superior de Hotelaria e Turismo do Estoril.</p>
 
     <div class="reference-list">
-
+            </dd>
+            
+            <dt>Secção 1</dt>
+             <dd>
+            </dd>
         <dl>
             <dt>Artigo Científico</dt>
             <dd>
@@ -795,6 +939,20 @@ Geograficamente, o público é composto predominantemente por residentes na Áre
             <dd>
                 LU.CA - Teatro Luís de Camões. (s.d.). <span class="apa-title">O que é que os meus pais fazem quando não estão comigo</span>. 
                 Recuperado de <a href="https://lucateatroluisdecamoes.pt/event/o-que-e-que-os-meus-pais-fazem-quando-nao-estao-comigo/" target="_blank">https://lucateatroluisdecamoes.pt/event/o-que-e-que-os-meus-pais-fazem-quando-nao-estao-comigo/</a>
+            </dd>
+            
+            <dt>Secção 2</dt>
+             <dd>
+                Teatro Independente de Oeiras. (s.d.). <span class="apa-title">N`Ó É?</span>. 
+                Recuperado de <a href="https://www.teatrodeoeiras.com/no-e-2024/" target="_blank" rel="noopener">https://www.teatrodeoeiras.com/no-e-2024/</a>
+            </dd>
+            <dd>
+                CNN Portugal. (2025, 6 de novembro). <span class="apa-title">Apenas 31 municípios tinham poder de compra acima da média nacional em 2023</span>. 
+                Recuperado de <a href="https://cnnportugal.iol.pt/habitacao/ine/apenas-31-municipios-tinham-poder-de-compra-acima-da-media-nacional-em-2023/20251106/690c9854d34e3caad84af979" target="_blank" rel="noopener">https://cnnportugal.iol.pt/habitacao/ine/apenas-31-municipios-tinham-poder-de-compra-acima-da-media-nacional-em-2023/20251106/690c9854d34e3caad84af979</a>
+            </dd>
+            <dd>
+                Instituto Nacional de Estatística. (2023). <span class="apa-title">Estudo sobre o Poder de Compra Concelhio - 2023</span>. 
+                Recuperado de <a href="https://www.ine.pt/" target="_blank" rel="noopener">https://www.ine.pt/</a>
             </dd>
             
         </dl>
@@ -860,12 +1018,8 @@ Geograficamente, o público é composto predominantemente por residentes na Áre
 
         const numDiasOutubro = 31;
         // 1 de Outubro de 2025 é uma Quarta-feira. 
-        // 0=Dom, 1=Seg, 2=Ter, 3=Qua, 4=Qui, 5=Sex, 6=Sáb
-        const diaInicio = 1; // Dia 1 do mês
         const diaDaSemanaInicio = 3; // Quarta-feira (0-6, onde 0 é Dom e 1 é Seg)
         
-        // Offset para preencher as células vazias antes do dia 1.
-        // Se o dia da semana for 'n', precisamos de 'n-1' células vazias (Seg=1, Ter=2, Qua=3...)
         let offset = diaDaSemanaInicio - 1; 
 
         // Adicionar células vazias
@@ -899,22 +1053,17 @@ Geograficamente, o público é composto predominantemente por residentes na Áre
                 linkEl.rel = 'noopener';
                 
                 // Imagem
-                // Assumimos que o 'alt' será o 'nome' do evento.
                 linkEl.innerHTML = `<img class="cal-thumb" src="${evento.imagem}" alt="${evento.nome} — imagem">`;
                 
                 // Label (rótulo)
                 let labelText = evento.label;
                 if (evento.inicio === evento.fim) {
-                     // Evento de um só dia
                     labelText = `${evento.label} — ${evento.inicio} out`; 
                 } else if (dia === evento.inicio && evento.inicio !== evento.fim) {
-                    // Primeiro dia de um evento longo
                     labelText = `${evento.label} — ${evento.inicio}–${evento.fim} out`;
                 } else if (dia > evento.inicio && dia < evento.fim) {
-                    // Dia intermédio (opcional: poderia ser um label mais curto ou vazio)
                     labelText = `${evento.label} (Continua)`;
                 } else if (dia === evento.fim && evento.inicio !== evento.fim) {
-                    // Último dia de um evento longo
                     labelText = `${evento.label} — Fim`;
                 }
                 
@@ -929,7 +1078,7 @@ Geograficamente, o público é composto predominantemente por residentes na Áre
     }
 
     /**
-     * Função para alternar a visibilidade das secções (original do seu código).
+     * Função para alternar a visibilidade das secções (CORRIGIDA).
      * @param {string} id - O ID da secção a mostrar.
      */
     function mostrarSecao(id) {
@@ -937,6 +1086,7 @@ Geograficamente, o público é composto predominantemente por residentes na Áre
             if (s.id === id) {
                 s.classList.add('active');
                 s.setAttribute('aria-hidden', 'false');
+                // Rolamento suave para a nova secção
                 s.scrollIntoView({behavior: 'smooth', block: 'start'});
             } else {
                 s.classList.remove('active');
@@ -945,11 +1095,11 @@ Geograficamente, o público é composto predominantemente por residentes na Áre
         });
     }
 
-    // Inicializa o calendário e a secção inicial
+    // Inicializa a página
     document.addEventListener('DOMContentLoaded', () => {
-        gerarCalendario(); // Gera o calendário correto
-        // Inicializa com "secao1" visível (Análise Crítica/Vídeo)
-        mostrarSecao('secao1'); 
+        gerarCalendario();
+        // Inicializa com "secao1" visível
+        mostrarSecao('secao1');
     });
 
     /* --- Script: modal para visualizar PDFs com actions --- */
@@ -963,14 +1113,12 @@ Geograficamente, o público é composto predominantemente por residentes na Áre
         const closeBtn = document.getElementById('pdf-close');
 
         function openPdf(src, name) {
-            // usa parâmetro de visualização simples; o browser decide o renderer
             viewer.src = src + '#toolbar=0&navpanes=0';
             title.textContent = name || 'Visualizador PDF';
             downloadBtn.href = src;
             openNewBtn.onclick = () => window.open(src, '_blank', 'noopener');
             modal.classList.add('open');
             modal.setAttribute('aria-hidden','false');
-            // foco no botão fechar para acessibilidade
             closeBtn.focus();
         }
 
