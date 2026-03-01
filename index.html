@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect | My Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --text-color: #1f2937;
+            --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            color: var(--text-color);
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            margin-bottom: 30px;
+            font-size: 1.5rem;
+            letter-spacing: -0.5px;
+        }
+
+        /* Styling the CV Link as a Button */
+        .cv-button {
+            display: inline-block;
+            width: 100%;
+            padding: 15px 0;
+            margin-bottom: 25px;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
+
+        .cv-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(37, 99, 235, 0.3);
+            background-color: #1d4ed8;
+        }
+
+        .divider {
+            height: 1px;
+            background: #e5e7eb;
+            margin: 25px 0;
+        }
+
+        /* Styling the Image Link */
+        .image-container {
+            transition: transform 0.3s ease;
+        }
+
+        .image-container img {
+            width: 100%;
+            border-radius: 12px;
+            display: block;
+            border: 1px solid #ddd;
+        }
+
+        .image-container:hover {
+            transform: scale(1.03);
+        }
+
+        .label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: #6b7280;
+            margin-bottom: 10px;
+            display: block;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h1>Welcome</h1>
+
+        <span class="label">Professional</span>
+        <a class="cv-button" href="https://drive.google.com/file/d/1W3BkmkSmxtX0hWjeilc6MXgexyc7SXPg/view?usp=sharing" target="_blank">
+            📄 View My CV
+        </a>
+
+        <div class="divider"></div>
+
+        <span class="label">Featured Project</span>
+        <a href="https://culturiza-te.me" class="image-container" target="_blank">
+            <img src="https://i.ibb.co/GQPbgcRg/image.png" alt="Culturiza-te">
+        </a>
+    </div>
+
+</body>
+</html>
