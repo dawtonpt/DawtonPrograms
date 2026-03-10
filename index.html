@@ -3,114 +3,149 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connect | My Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <title>Dawton Pessanha - Links</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
     <style>
-        :root {
-            --primary-color: #2563eb;
-            --text-color: #1f2937;
-            --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        /* General Reset and Font */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
+        /* Background and Container */
         body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg-gradient);
+            background-color: #f3f4f6; /* Light gray background */
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
             min-height: 100vh;
+            padding: 60px 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 450px; /* Keeps it looking like a mobile screen */
+            text-align: center;
+        }
+
+        /* Profile Section */
+        .name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1f2937;
+            margin-bottom: 8px;
+        }
+
+        .bio {
+            font-size: 15px;
+            color: #4b5563;
+            margin-bottom: 32px;
+        }
+
+        /* Buttons Section */
+        .links-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px; /* Space between buttons */
+            margin-bottom: 40px; /* Space before the footer */
+        }
+
+        .link-button {
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0;
-            color: var(--text-color);
-        }
-
-        .card {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            text-align: center;
-            max-width: 400px;
-            width: 90%;
-            backdrop-filter: blur(10px);
-        }
-
-        h1 {
-            margin-bottom: 30px;
-            font-size: 1.5rem;
-            letter-spacing: -0.5px;
-        }
-
-        /* Styling the CV Link as a Button */
-        .cv-button {
-            display: inline-block;
+            position: relative;
             width: 100%;
-            padding: 15px 0;
-            margin-bottom: 25px;
-            background-color: var(--primary-color);
-            color: white;
+            padding: 16px 20px;
+            background-color: #ffffff;
+            color: #1f2937;
             text-decoration: none;
-            border-radius: 12px;
-            font-weight: 700;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+            font-weight: 600;
+            font-size: 16px;
+            border-radius: 30px; /* Pill shape */
+            border: 1px solid #d1d5db;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         }
 
-        .cv-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(37, 99, 235, 0.3);
-            background-color: #1d4ed8;
+        /* Icon positioning */
+        .link-button i {
+            position: absolute;
+            left: 20px; /* Anchors the icon to the left */
+            font-size: 20px;
         }
 
-        .divider {
-            height: 1px;
-            background: #e5e7eb;
-            margin: 25px 0;
+        /* Hover Effect */
+        .link-button:hover {
+            background-color: #1f2937; /* Dark background on hover */
+            color: #ffffff; /* White text on hover */
+            transform: translateY(-2px); /* Slight lift */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        /* Styling the Image Link */
-        .image-container {
-            transition: transform 0.3s ease;
-        }
-
-        .image-container img {
-            width: 100%;
-            border-radius: 12px;
-            display: block;
-            border: 1px solid #ddd;
-        }
-
-        .image-container:hover {
-            transform: scale(1.03);
-        }
-
-        .label {
-            font-size: 0.8rem;
-            text-transform: uppercase;
+        /* Footer Section */
+        .footer {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            font-size: 14px;
             color: #6b7280;
-            margin-bottom: 10px;
-            display: block;
-            font-weight: 700;
+        }
+
+        .footer a {
+            color: #4b5563;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .footer a:hover {
+            color: #1f2937;
+            text-decoration: underline;
+        }
+
+        .footer i {
+            margin-right: 8px;
+            color: #9ca3af;
         }
     </style>
 </head>
 <body>
 
-    <div class="card">
-        <h1>Welcome</h1>
+    <div class="container">
+        
+        <h1 class="name">Dawton Pessanha</h1>
+        <p class="bio">Welcome to my personal page. Click below to connect!</p>
 
-        <span class="label">Professional</span>
-        <a class="cv-button" href="https://drive.google.com/file/d/1W3BkmkSmxtX0hWjeilc6MXgexyc7SXPg/view?usp=sharing" target="_blank">
-            📄 View My CV
-        </a>
+        <div class="links-container">
+            <a href="https://www.linkedin.com/in/dawton-pessanha-ba111a372" target="_blank" rel="noopener noreferrer" class="link-button">
+                <i class="fab fa-linkedin" style="color: #0077b5;"></i>
+                LinkedIn
+            </a>
+            <a href="https://drive.google.com/file/d/1W3BkmkSmxtX0hWjeilc6MXgexyc7SXPg/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-button">
+                <i class="fas fa-file-pdf" style="color: #e2574c;"></i>
+                Curriculum Vitae (CV)
+            </a>
+            <a href="https://culturiza-te.me/" target="_blank" rel="noopener noreferrer" class="link-button">
+                <i class="fas fa-globe" style="color: #10b981;"></i>
+                Business
+            </a>
+        </div>
 
-        <div class="divider"></div>
-
-        <span class="label">Featured Project</span>
-        <a href="https://culturiza-te.me" class="image-container" target="_blank">
-            <img src="https://i.ibb.co/GQPbgcRg/image.png" alt="Culturiza-te">
-        </a>
+        <div class="footer">
+            <p>
+                <i class="fas fa-envelope"></i> 
+                <a href="mailto:dawtonvsp@gmail.com">dawtonvsp@gmail.com</a>
+            </p>
+            <p>
+                <i class="fas fa-phone"></i> 
+                <a href="tel:+351927321689">927321689</a>
+            </p>
+        </div>
     </div>
 
 </body>
 </html>
-
